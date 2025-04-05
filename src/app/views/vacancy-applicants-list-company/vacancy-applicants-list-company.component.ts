@@ -6,13 +6,17 @@ import {MainSubtitleComponent} from '../../components/main-subtitle/main-subtitl
 import {
   CompanyVacancyToggleNavComponent
 } from '../../components/company-vacancy-toggle-nav/company-vacancy-toggle-nav.component';
+import {HeaderCompanyComponent} from '../../components/header-company/header-company.component';
+import {FooterComponent} from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-vacancy-applicants-list-company',
   imports: [
     CompanyVacancyApplicantsListComponent,
     MainSubtitleComponent,
-    CompanyVacancyToggleNavComponent
+    CompanyVacancyToggleNavComponent,
+    HeaderCompanyComponent,
+    FooterComponent
   ],
   templateUrl: './vacancy-applicants-list-company.component.html',
   styleUrl: './vacancy-applicants-list-company.component.css'

@@ -3,12 +3,20 @@ import {MainSubtitleComponent} from '../../components/main-subtitle/main-subtitl
 import {
   CompanyVacancyToggleNavComponent
 } from '../../components/company-vacancy-toggle-nav/company-vacancy-toggle-nav.component';
+import {FooterComponent} from "../../components/footer/footer.component";
+import {HeaderJobSeekerComponent} from "../../components/header-job-seeker/header-job-seeker.component";
+import {VacancyProfileEditComponent} from "../../components/vacancy-profile-edit/vacancy-profile-edit.component";
+import {HeaderCompanyComponent} from '../../components/header-company/header-company.component';
 
 @Component({
   selector: 'app-vacancy-view-company',
   imports: [
     MainSubtitleComponent,
-    CompanyVacancyToggleNavComponent
+    CompanyVacancyToggleNavComponent,
+    FooterComponent,
+    HeaderJobSeekerComponent,
+    VacancyProfileEditComponent,
+    HeaderCompanyComponent
   ],
   templateUrl: './vacancy-view-company.component.html',
   styleUrl: './vacancy-view-company.component.css'

@@ -8,7 +8,7 @@ import { SignInCompanyComponent } from './views/sign-in-company/sign-in-company.
 import { SignUpJobSeekerComponent } from './views/sign-up-job-seeker/sign-up-job-seeker.component';
 import { SignUpCompanyComponent } from './views/sign-up-company/sign-up-company.component';
 import { VacancyApplicantsListCompanyComponent } from './views/vacancy-applicants-list-company/vacancy-applicants-list-company.component';
-import {VacancyViewJobSeekerComponent} from './views/vacancy-view-job-seeker/vacancy-view-job-seeker.component';
+import {VacancyProfileEditViewerComponent} from './views/vacancy-profile-edit-viewer/vacancy-profile-edit-viewer.component'
 import {VacancyViewCompanyComponent} from './views/vacancy-view-company/vacancy-view-company.component';
 import {VacancyPostCompanyComponent} from './views/vacancy-post-company/vacancy-post-company.component';
 import {CompanyViewJobSeekerProfileComponent} from './views/company-view-job-seeker-profile/company-view-job-seeker-profile.component'
@@ -25,7 +25,7 @@ export const routes: Routes = [
   { path: 'sign-up-job-seeker', component: SignUpJobSeekerComponent },
   { path: 'sign-up-company', component: SignUpCompanyComponent },
   { path: 'vacancy-applicants', component: VacancyApplicantsListCompanyComponent },
-  { path: 'view-vacancy', component: VacancyViewJobSeekerComponent },
+  { path: 'view-vacancy', component: VacancyProfileEditViewerComponent },
   { path: 'edit-vacancy', component: VacancyViewCompanyComponent },
   { path: 'post-vacancy', component: VacancyPostCompanyComponent }
 ];

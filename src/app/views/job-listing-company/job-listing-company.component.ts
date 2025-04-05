@@ -4,12 +4,16 @@ import {
   CompanyJobListingListComponent
 } from '../../components/company-job-listing-list/company-job-listing-list.component';
 import {Router} from '@angular/router';
+import {HeaderCompanyComponent} from '../../components/header-company/header-company.component';
+import {FooterComponent} from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-job-listing-company',
   imports: [
     MainTittleComponent,
-    CompanyJobListingListComponent
+    CompanyJobListingListComponent,
+    HeaderCompanyComponent,
+    FooterComponent
   ],
   templateUrl: './job-listing-company.component.html',
   styleUrl: './job-listing-company.component.css'
