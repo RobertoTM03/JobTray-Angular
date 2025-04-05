@@ -1,0 +1,38 @@
+<header id="job-seeker-header">
+  <section class="display-section">
+    <section class="display-section">
+      <img [src]="imagen" class="login-section" id="header-logo" alt="">
+    </section>
+  </section>
+  <section class="job-seeker-buttons-section">
+    <section class="job-seeker-find-jobs-button-section">
+      <button class="job-seeker-find-jobs-button" onclick="redirectToFindJobsJobSeeker(event, this)">Find a job</button>
+
+
+      <div class="mobile-btn-wrapper">
+        <button class="mobile-btn" >☰</button>
+
+        <div class="mobile-btn-container">
+          <button class="mobile-button" onclick="redirectToFindJobsJobSeeker(event, this)">Find a job</button>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section-button-job-seeker-button">
+      <img [src]="imagen"  id="job-seeker-header-profile-image" alt="">
+
+      <button class="job-seeker-header-profile-button">
+        <b class="color-name" id="job-seeker-header-name">Name</b>
+        <br>
+        <span id="job-seeker-header-email">emailexample.com</span>
+      </button>
+
+      <div class="popup-menu">
+        <button class="popup-btn" onclick="redirectToJobSeekerProfileJobSeeker(event, this, 1)">Edit profile</button>
+        <button class="popup-btn logout" onclick="redirectToMainPage(event, this)">Log out</button>
+      </div>
+    </section>
+  </section>
+
+</header>
