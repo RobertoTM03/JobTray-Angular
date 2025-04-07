@@ -4,7 +4,6 @@ import {
   CompanyVacancyToggleNavComponent
 } from '../../components/company-vacancy-toggle-nav/company-vacancy-toggle-nav.component';
 import {FooterComponent} from "../../components/footer/footer.component";
-import {HeaderJobSeekerComponent} from "../../components/header-job-seeker/header-job-seeker.component";
 import {VacancyProfileEditComponent} from "../../components/vacancy-profile-edit/vacancy-profile-edit.component";
 import {HeaderCompanyComponent} from '../../components/header-company/header-company.component';
 
@@ -14,7 +13,6 @@ import {HeaderCompanyComponent} from '../../components/header-company/header-com
     MainSubtitleComponent,
     CompanyVacancyToggleNavComponent,
     FooterComponent,
-    HeaderJobSeekerComponent,
     VacancyProfileEditComponent,
     HeaderCompanyComponent
   ],

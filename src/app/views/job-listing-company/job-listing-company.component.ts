@@ -3,7 +3,6 @@ import {MainTittleComponent} from '../../components/main-tittle/main-tittle.comp
 import {
   CompanyJobListingListComponent
 } from '../../components/company-job-listing-list/company-job-listing-list.component';
-import {Router} from '@angular/router';
 import {HeaderCompanyComponent} from '../../components/header-company/header-company.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 

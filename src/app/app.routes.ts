@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { MainPageComponent } from './views/main-page/main-page.component';
+
 import { FindJobsJobSeekerComponent } from './views/find-jobs-job-seeker/find-jobs-job-seeker.component';
 import { JobListingCompanyComponent } from './views/job-listing-company/job-listing-company.component';
 import { SignInJobSeekerComponent } from './views/sign-in-job-seeker/sign-in-job-seeker.component';
@@ -13,9 +13,10 @@ import {VacancyViewCompanyComponent} from './views/vacancy-view-company/vacancy-
 import {VacancyPostCompanyComponent} from './views/vacancy-post-company/vacancy-post-company.component';
 import {CompanyViewJobSeekerProfileComponent} from './views/company-view-job-seeker-profile/company-view-job-seeker-profile.component'
 import {JobSeekerProfileEditComponent} from './views/job-seeker-profile-edit/job-seeker-profile-edit.component';
+import {MainPagesComponent} from './views/main-pages/main-pages.component';
+
 export const routes: Routes = [
-  { path: '', redirectTo: 'main-page', pathMatch: 'full' },  // ruta por defecto
-  { path: 'main-page', component: MainPageComponent },
+  { path: '', redirectTo: 'main-pages', pathMatch: 'full' },  // ruta por defecto
   { path: 'find-jobs', component: FindJobsJobSeekerComponent },
   { path: 'job-listing', component: JobListingCompanyComponent },
   { path: 'company-view-job-seeker-profile', component:CompanyViewJobSeekerProfileComponent },
@@ -27,5 +28,7 @@ export const routes: Routes = [
   { path: 'vacancy-applicants', component: VacancyApplicantsListCompanyComponent },
   { path: 'view-vacancy', component: VacancyProfileEditViewerComponent },
   { path: 'edit-vacancy', component: VacancyViewCompanyComponent },
-  { path: 'post-vacancy', component: VacancyPostCompanyComponent }
+  { path: 'post-vacancy', component: VacancyPostCompanyComponent },
+  {path:'main-pages', component: MainPagesComponent},
+
 ];

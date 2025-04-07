@@ -3,9 +3,7 @@ import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-job-seeker-find-jobs-list',
-  imports: [
-    RouterLink
-  ],
+  imports: [RouterLink],
   templateUrl: './job-seeker-find-jobs-list.component.html',
   styleUrl: './job-seeker-find-jobs-list.component.css'
 })

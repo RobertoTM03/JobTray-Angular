@@ -1,4 +1,4 @@
-footer p {
+.footer p {
   color: white;
 }
 
@@ -26,6 +26,7 @@ footer p {
   height: 80%;
   text-align: left;
   padding-left: 30px;
+  color: white;
 }
 
 #footer-container2 {
@@ -34,6 +35,7 @@ footer p {
   padding-right: 10px;
   padding-left: 30px;
   text-align: left;
+  color: white;
 }
 
 @media only screen and (max-width: 600px){
