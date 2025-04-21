@@ -8,5 +8,5 @@ import {Component} from '@angular/core';
 })
 
 export class MainPageComponent {
-  imagen="/assets/asps.png";
+  logoImage="/assets/jobtray_logo_with_text.png";
 }

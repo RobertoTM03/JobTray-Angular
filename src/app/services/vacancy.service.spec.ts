@@ -15,7 +15,7 @@ describe('VacancyService', () => {
 
   const mockVacancy: Vacancy = {
     id: '1',
-    owner: 1,
+    ownerId: "1",
     name: 'Software Engineer',
     stage: VacancyStage.Open,
     postedDate: '2000-01-01',
@@ -25,7 +25,7 @@ describe('VacancyService', () => {
     maximumSalary: 13000,
     applicants: [
       {
-        id: 3,
+        id: "3",
         stage: ApplicantStage.New,
         applyDate: '2000-10-10'
       }

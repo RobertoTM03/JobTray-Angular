@@ -1,36 +1,35 @@
-<header id="company-header">
+<header id="company-header" class="header">
   <section class="display-section">
     <section class="display-section">
-      <img [src]="imagen" class="login-section" id="header-logo" alt="">
+      <img [src]="logoImage" class="header-logo" alt="">
     </section>
   </section>
   <section class="display-section">
     <section class="company-buttons-container">
       <!-- Botones visibles en escritorio -->
-      <button class="company-buttons" onclick="redirectToJobListingCompany(event, this)">Job Listing</button>
-      <button class="company-buttons" onclick="redirectToVacancyPostCompany(event, this)">Post a job</button>
+      <button class="company-buttons" (click)="goToJobListing()" role="button" tabindex="0">Job Listing</button>
+      <button class="company-buttons" (click)="goToPostVacancyPost()" role="button" tabindex="0">Post a job</button>
 
       <div class="mobile-btn-wrapper">
         <button class="mobile-btn">☰</button>
 
         <div class="mobile-btn-container">
-          <button class="mobile-button" onclick="redirectToJobListingCompany(event, this)">Job Listing</button>
-          <button class="mobile-button" onclick="redirectToVacancyPostCompany(event, this)">Post a job</button>
+          <button class="mobile-button" (click)="goToJobListing()" role="button">Job Listing</button>
+          <button class="mobile-button" (click)="goToPostVacancyPost()" role="button">Post a job</button>
         </div>
       </div>
 
-
       <!-- Perfil de usuario -->
       <section class="buttons-section-header">
-        <img [src]="imagen"  id="company-header-profile-image" alt="">
+        <img [src]="currentCompany?.image" id="company-header-profile-image" alt="">
 
         <button class="company-buttons-profile" id="company-profile-button">
-          <b class="color-name" id="company-header-name">Company Name</b><br>
-          <span id="company-header-email">companyexample.com</span>
+          <b class="color-name" id="company-header-name">{{currentCompany?.name}}</b><br>
+          <span id="company-header-email">{{ currentCompany?.email }}</span>
         </button>
 
         <div class="popup-menu" id="popup-menu">
-          <button class="popup-btn logout" onclick="redirectToMainPage(event, this)">Log out</button>
+          <button class="popup-btn logout" (click)="logOut()">Log out</button>
         </div>
       </section>
     </section>

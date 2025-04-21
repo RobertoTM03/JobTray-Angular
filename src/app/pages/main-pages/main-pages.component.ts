@@ -6,7 +6,7 @@ import {MainPageComponent} from '../../components/main-page/main-page.component'
 
 @Component({
   selector: 'app-main-pages',
-  imports: [RouterLink, HeaderMainPageComponent, FooterComponent, MainPageComponent],
+  imports: [HeaderMainPageComponent, FooterComponent, MainPageComponent],
   templateUrl: './main-pages.component.html',
   styleUrls: ['./main-pages.component.css']
 })

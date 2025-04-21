@@ -1,13 +1,13 @@
-<header id="main-header">
+<header id="main-header" class="header">
   <section class="display-section">
     <section  class="display-section">
-      <img src="/assets/asps.png" class="login-section" id="header-logo" alt="logotype">
+      <img [src]="logoImage" class="login-section" id="header-logo" alt="logotype">
     </section>
   </section>
   <section class="display-section">
     <section class="buttons-main-page-section">
-      <button class="buttons-main-page" onclick="redirectToJobSeekerSignIn(event, this)">Login</button>
-      <button class="buttons-main-page" onclick="redirectToJobSeekerSignUp(event, this)"> Sign Up</button>
+      <button class="buttons-main-page" (click)="goToJobSeekerSignIn()" role="button" tabindex="0">Login</button>
+      <button class="buttons-main-page" (click)="goToJobSeekerSignUp()" role="button" tabindex="0">Sign Up</button>
     </section>
   </section>
 </header>

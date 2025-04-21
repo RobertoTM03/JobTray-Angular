@@ -1,13 +1,12 @@
-
-<main>
+<main *ngIf="currentJobSeeker as jobSeeker">
   <section class="user-dashboard">
 
     <section class="user-image-dashboard">
       <label for="uploadImage">
-        <img id="job-seeker-image" [src]="imagen" class="user-image" alt="">
+        <img [src]="jobSeeker.image || imagen" class="user-image" alt="Job seeker image">
       </label>
       <section class="image-controls">
-        <h1 id="job-seeker-name">Lore ipsum</h1>
+        <h1>{{ jobSeeker.fullName }}</h1>
         <input type="file" id="uploadImage" accept="image/*" hidden>
       </section>
     </section>
@@ -16,23 +15,58 @@
   <section id="space-user">
     <section class="space-write">
       <h3>About Me</h3>
-      <label for="job-seeker-description"></label><textarea readonly class="text-user" id="job-seeker-description" placeholder="Enter your experience, your education, your courses"></textarea>
+      <label for="job-seeker-description"></label>
+      <textarea
+        class="text-user"
+        id="job-seeker-description"
+        placeholder="Enter your experience, your education, your courses"
+        [(ngModel)]="jobSeeker.userProfileDescription"
+        name="description">
+      </textarea>
 
       <h3 id="portfolio">Portfolio</h3>
-      <label for="job-seeker-portfolio"></label><textarea readonly class="portfolio-textarea" id="job-seeker-portfolio" placeholder="Enter your portfolio link here"></textarea>
+      <label for="job-seeker-portfolio"></label>
+      <textarea
+        class="portfolio-textarea"
+        id="job-seeker-portfolio"
+        placeholder="Enter your portfolio link here"
+        [(ngModel)]="jobSeeker.portfolioLink"
+        name="portfolio">
+      </textarea>
     </section>
 
     <aside id="contact-information">
       <h3>Contact Information</h3>
 
       <h4 class="margin-zero">Email Address</h4>
-      <label for="job-seeker-email"></label><input readonly class="contact-method" type="text" id="job-seeker-email" placeholder="Enter your email address">
+      <label for="job-seeker-email"></label>
+      <input
+        class="contact-method"
+        type="text"
+        id="job-seeker-email"
+        placeholder="Enter your email address"
+        [(ngModel)]="jobSeeker.email"
+        name="email">
 
       <h4 class="margin-zero">Phone number</h4>
-      <label for="job-seeker-phone-number"></label><input readonly class="contact-method" type="tel" id="job-seeker-phone-number" placeholder="Enter your phone number">
+      <label for="job-seeker-phone-number"></label>
+      <input
+        class="contact-method"
+        type="tel"
+        id="job-seeker-phone-number"
+        placeholder="Enter your phone number"
+        [(ngModel)]="jobSeeker.phoneNumber"
+        name="phone">
 
       <h4 class="margin-zero">Other</h4>
-      <label for="job-seeker-other-contact-method"></label><input readonly class="contact-method" type="text" id="job-seeker-other-contact-method" placeholder="Enter any account">
+      <label for="job-seeker-other-contact-method"></label>
+      <input
+        class="contact-method"
+        type="text"
+        id="job-seeker-other-contact-method"
+        placeholder="Enter any account"
+        [(ngModel)]="jobSeeker.otherContactMethod"
+        name="otherContact">
     </aside>
   </section>
 </main>

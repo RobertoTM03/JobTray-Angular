@@ -1,5 +1,7 @@
 export enum JobType {
   FullTime = 'Full-Time',
   HalfTime = 'Half-Time',
-  PartTime = 'part-time',
+  Remote = 'Remote',
+  Internship = 'Internship',
+  Contract = 'Contract',
 }

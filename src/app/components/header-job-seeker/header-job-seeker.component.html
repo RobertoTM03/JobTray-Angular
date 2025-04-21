@@ -1,36 +1,36 @@
-<header id="job-seeker-header">
+<header id="job-seeker-header" class="header">
   <section class="display-section">
     <section class="display-section">
-      <img [src]="imagen" class="login-section" id="header-logo" alt="">
+      <img [src]="logoImage" class="header-logo" alt="">
     </section>
   </section>
+
   <section class="job-seeker-buttons-section">
     <section class="job-seeker-find-jobs-button-section">
-      <button class="job-seeker-find-jobs-button" onclick="redirectToFindJobsJobSeeker(event, this)">Find a job</button>
-
+      <button class="job-seeker-find-jobs-button" (click)="goToFindJobs()" role="button" tabindex="0">Find a job</button>
 
       <div class="mobile-btn-wrapper">
         <button class="mobile-btn" >☰</button>
 
         <div class="mobile-btn-container">
-          <button class="mobile-button" onclick="redirectToFindJobsJobSeeker(event, this)">Find a job</button>
+          <button class="mobile-button" (click)="goToFindJobs()">Find a job</button>
         </div>
       </div>
     </section>
 
 
     <section class="section-button-job-seeker-button">
-      <img [src]="imagen"  id="job-seeker-header-profile-image" alt="">
+      <img [src]="currentJobSeeker?.image" id="job-seeker-header-profile-image" alt="">
 
       <button class="job-seeker-header-profile-button">
-        <b class="color-name" id="job-seeker-header-name">Name</b>
+        <b class="color-name" id="job-seeker-header-name">{{currentJobSeeker?.fullName}}</b>
         <br>
-        <span id="job-seeker-header-email">emailexample.com</span>
+        <span id="job-seeker-header-email">{{currentJobSeeker?.email}}</span>
       </button>
 
       <div class="popup-menu">
-        <button class="popup-btn" onclick="redirectToJobSeekerProfileJobSeeker(event, this, 1)">Edit profile</button>
-        <button class="popup-btn logout" onclick="redirectToMainPage(event, this)">Log out</button>
+        <button class="popup-btn" (click)="goToEditProfile(currentJobSeeker?.id)" role="button" tabindex="0">Edit profile</button>
+        <button class="popup-btn logout" (click)="logOut()">Log out</button>
       </div>
     </section>
   </section>

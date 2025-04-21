@@ -307,7 +307,7 @@ user-dashboard {
 
   #space-user {
     display: flex;
-    flex-direction: column-reverse; /* Apilar elementos en columna */
+    flex-direction: column-reverse;
     align-items: stretch;
     min-height: auto ;
     height: auto ;
@@ -409,11 +409,11 @@ user-dashboard {
   .user-image-dashboard {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centrado vertical */
-    align-items: center;     /* Centrado horizontal */
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     width: 100%;
-    height: 100%; /* o puedes usar un valor fijo si prefieres */
+    height: 100%;
     padding: 20px 0;
   }
 
@@ -421,7 +421,7 @@ user-dashboard {
 
 .font-vacancy {
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Número máximo de líneas */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -429,13 +429,13 @@ user-dashboard {
   text-align: center;
   padding: 0 10px;
   box-sizing: border-box;
-  font-size: 2rem; /* Escritorio */
+  font-size: 2rem;
 }
 
 @media (max-width: 768px) {
   .font-vacancy {
     font-size: 4.5vw;
-    -webkit-line-clamp: 2; /* Mantiene 2 líneas en móvil */
+    -webkit-line-clamp: 2;
   }
 }
 .vacancy-tab-nav {
@@ -462,3 +462,24 @@ user-dashboard {
   color: black;
   border-bottom: 3px solid blue;
 }
+
+/* Notificación de éxito */
+.snack-success {
+  background-color: #2e7d32 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+  font-weight: 500;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Notificación de error */
+.snack-error {
+  background-color: #c62828 !important;
+  color: white !important;
+  opacity: 1 !important;
+  font-weight: 500;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+

@@ -10,7 +10,29 @@
     </thead>
 
     <tbody>
-    <tr></tr>
+    <tr class="vacancy-list-row" *ngFor="let applicant of applicants">
+      <td>
+        <img [src]="applicant.image || '../../assets/images/placeholder.png'" alt="Applicant image" />
+        <span>{{ applicant.fullName }}</span>
+      </td>
+
+      <td>
+        <span class="status-tag">{{ applicant.stage }}</span>
+      </td>
+
+      <td>{{ applicant.applyDate | date: 'dd/MM/yyyy' }}</td>
+
+      <td class="action-column">
+        <div class="button-group">
+          <button class="see-profiles" (click)="seeProfile(applicant.id)">See Profile</button>
+          <button class="more-options" (click)="toggleOptions(applicant)">···</button>
+
+          <div class="options-menu" *ngIf="applicant.showOptions">
+            <button class="decline-vacancy" (click)="declineApplicant(applicant)">Decline</button>
+          </div>
+        </div>
+      </td>
+    </tr>
     </tbody>
   </table>
 </section>

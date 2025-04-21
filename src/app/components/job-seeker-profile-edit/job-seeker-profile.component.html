@@ -1,47 +1,95 @@
-<main>
+<main *ngIf="currentJobSeeker as jobSeeker">
   <section class="user-dashboard">
 
     <section class="user-image-dashboard">
-
       <label for="uploadImage">
-        <img id="job-seeker-image" [src]="imagen" class="user-image" alt="">
+        <img [src]="jobSeeker.image || imagen" class="user-image" alt="Job seeker image">
       </label>
 
       <section class="image-controls">
-        <h1 id="job-seeker-name">Lore ipsum</h1>
+        <h1>
+          <input
+            [(ngModel)]="jobSeeker.fullName"
+            name="fullName"
+            class="input-name-as-h1"
+            placeholder="Enter your full name"
+          />
+        </h1>
         <input type="file" id="uploadImage" accept="image/*" hidden>
       </section>
     </section>
 
     <section>
-      <button class="SaveChanges" id="desktopSaveChanges"><b>Save changes</b></button>
+      <button class="SaveChanges" id="desktopSaveChanges" (click)="saveChanges()">
+        <b>Save changes</b>
+      </button>
     </section>
   </section>
 
   <section id="space-user">
     <section class="space-write">
       <h3>About Me</h3>
-      <label for="job-seeker-description"></label><textarea class="text-user" id="job-seeker-description" placeholder="Enter your experience, your education, your courses"></textarea>
+      <label for="job-seeker-description"></label>
+      <textarea
+        class="text-user"
+        id="job-seeker-description"
+        [(ngModel)]="jobSeeker.userProfileDescription"
+        name="description"
+        placeholder="Enter your experience, your education, your courses"
+      ></textarea>
 
       <h3 id="portfolio">Portfolio</h3>
-      <label for="job-seeker-portfolio"></label><textarea class="portfolio-textarea" id="job-seeker-portfolio" placeholder="Enter your portfolio link here"></textarea>
+      <label for="job-seeker-portfolio"></label>
+      <textarea
+        class="portfolio-textarea"
+        id="job-seeker-portfolio"
+        [(ngModel)]="jobSeeker.portfolioLink"
+        name="portfolio"
+        placeholder="Enter your portfolio link here"
+      ></textarea>
     </section>
 
     <aside id="contact-information">
       <h3>Contact Information</h3>
 
       <h4 class="margin-zero">Email Address</h4>
-      <label for="job-seeker-email"></label><input class="contact-method" type="text" id="job-seeker-email" placeholder="Enter your email address">
+      <label for="job-seeker-email"></label>
+      <input
+        class="contact-method"
+        type="email"
+        id="job-seeker-email"
+        [(ngModel)]="jobSeeker.email"
+        name="email"
+        placeholder="Enter your email address"
+      >
 
       <h4 class="margin-zero">Phone number</h4>
-      <label for="job-seeker-phone-number"></label><input class="contact-method" type="tel" id="job-seeker-phone-number" placeholder="Enter your phone number">
+      <label for="job-seeker-phone-number"></label>
+      <input
+        class="contact-method"
+        type="tel"
+        id="job-seeker-phone-number"
+        [(ngModel)]="jobSeeker.phoneNumber"
+        name="phone"
+        placeholder="Enter your phone number"
+      >
 
       <h4 class="margin-zero">Other</h4>
-      <label for="job-seeker-other-contact-method"></label><input class="contact-method" type="text" id="job-seeker-other-contact-method" placeholder="Enter any account">
+      <label for="job-seeker-other-contact-method"></label>
+      <input
+        class="contact-method"
+        type="text"
+        id="job-seeker-other-contact-method"
+        [(ngModel)]="jobSeeker.otherContactMethod"
+        name="otherContact"
+        placeholder="Enter any account"
+      >
     </aside>
   </section>
 
   <section>
-    <button class="SaveChanges" id="mobileSaveChanges"><b>Save changes</b></button>
+    <button class="SaveChanges" id="mobileSaveChanges" (click)="saveChanges()">
+      <b>Save changes</b>
+    </button>
   </section>
 </main>

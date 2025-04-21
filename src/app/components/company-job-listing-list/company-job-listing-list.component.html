@@ -6,14 +6,38 @@
       <th class="clickable-th">Stage</th>
       <th class="clickable-th">Date Posted</th>
       <th class="clickable-th">Due Date</th>
-      <th class="clickable-th" (click)="goToFindJobs()">Job Type</th>
-      <th class="clickable-th">Applicants</th>
+      <th class="clickable-th">Job Type</th>
+      <th class="clickable-th" (click)="goToCompanySignIn()">Applicants</th>
       <th></th>
     </tr>
     </thead>
 
     <tbody>
-    <tr class="job-listing-row">
+    <tr class="job-listing-row" *ngFor="let vacancy of vacancies">
+      <td class="actions-container">
+        <img [src]="vacancy.image || '../../assets/images/placeholder.png'" alt="Vacancy image" />
+        <span>{{ vacancy.name }}</span>
+      </td>
+
+      <td>
+        <span class="status-tag">{{ vacancy.stage }}</span>
+      </td>
+
+      <td>{{ vacancy.postedDate | date:'dd/MM/yyyy' }}</td>
+      <td>{{ vacancy.dueDate | date:'dd/MM/yyyy' }}</td>
+
+      <td>
+        <span class="status-tag">{{ vacancy.jobType }}</span>
+      </td>
+
+      <td>{{ vacancy?.applicants?.length || 0 }}</td>
+
+      <td class="action-column">
+        <div class="button-group">
+          <button class="see-profiles" (click)="seeVacancy(vacancy.id)">See Vacancy</button>
+          <button class="more-options" (click)="toggleMenu()">···</button>
+        </div>
+      </td>
     </tr>
     </tbody>
   </table>

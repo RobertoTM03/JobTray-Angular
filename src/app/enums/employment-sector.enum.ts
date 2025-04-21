@@ -1,5 +1,5 @@
 export enum EmploymentSector {
-  Primary = 'primary',
+  Primary = 'Primary',
   Secondary = 'Secondary',
   Third = 'Third'
 }

@@ -1,10 +1,12 @@
 <section class="list-container">
+
   <!-- Botón Filters que aparece en mobile/tablet -->
   <button class="filters-toggle">Filters</button>
 
   <!-- Fondo Oscuro -->
   <div class="overlay"></div>
 
+  <!-- Aside con filtros (preparado para futura lógica) -->
   <aside class="filter-aside">
     <fieldset>
       <legend>Salary Range</legend>
@@ -37,8 +39,23 @@
 
   <section class="job-list">
     <h2>All Jobs</h2>
-    <div class="see-more-button">
-      <button id="see-more">See more...</button>
+
+    <!-- Lista de vacantes visibles -->
+    <div class="job-card" *ngFor="let vacancy of visibleVacancies" (click)="seeVacancy(vacancy.id)">
+      <div class="logo">
+        <img [src]="vacancy.image || '/assets/asps.png'" alt="Company Logo">
+      </div>
+      <div class="job-info">
+        <h3 class="job-title">{{ vacancy.name }}</h3>
+        <p class="job-description">{{ vacancy.description }}</p>
+        <p><strong>Salary:</strong> ${{ vacancy.minimumSalary }} - ${{ vacancy.maximumSalary }}</p>
+        <p><strong>Type:</strong> {{ vacancy.jobType }}</p>
+      </div>
+    </div>
+
+    <!-- Botón para ver más -->
+    <div class="see-more-button" *ngIf="visibleVacancies.length < vacancies.length">
+      <button id="see-more" (click)="showMore()">See more...</button>
     </div>
   </section>
 </section>

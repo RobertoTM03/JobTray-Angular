@@ -1,24 +1,30 @@
-<main>
+<main *ngIf="currentVacancy as vacancy">
   <section class="father-vacancy">
 
     <section class="dashboard-vacancy-new">
       <section class="item-vacancy">
         <picture>
-          <img id="vacancy-image" [src]="imagen" class="user-image-vacancy" alt="user image">
+          <img [src]="vacancy.image || imagen" class="user-image-vacancy" alt="user image">
         </picture>
         <section>
-          <h1 class="font-vacancy" id="vacancy-name">Lore ipsum</h1>
+          <h1 class="font-vacancy">{{ vacancy.name }}</h1>
         </section>
       </section>
 
-      <section class="button-save">
-        <button class="SaveChanges" id="desktopSaveChanges"><b>Save Changes</b></button>
+      <section class="button-apply">
+        <button class="ApplyNowVacant" id="desktopSaveChanges"><b>Apply now</b></button>
       </section>
     </section>
 
     <section class="write-space-vacancy">
       <section class="space-write">
-        <label for="vacancy-description"></label><textarea readonly placeholder="Enter your requirements for the job position" class="text-user-vacancy" id="vacancy-description"></textarea>
+        <label for="vacancy-description"></label>
+        <textarea
+          readonly
+          placeholder="Enter your requirements for the job position"
+          class="text-user-vacancy"
+          id="vacancy-description"
+        >{{ vacancy.description }}</textarea>
       </section>
 
       <section class="vacancy-request">
@@ -26,29 +32,67 @@
 
         <div class="vacancy-field">
           <h4 class="vacancy-label">Apply Before:</h4>
-          <label for="vacancy-apply-before"></label><input readonly type="date" id="vacancy-apply-before" class="vacancy-input">
+          <label for="vacancy-apply-before"></label>
+          <input
+            readonly
+            type="date"
+            id="vacancy-apply-before"
+            class="vacancy-input"
+            [value]="vacancy.dueDate"
+          >
         </div>
 
         <div class="vacancy-field">
           <h4 class="vacancy-label">Job Posted On:</h4>
-          <label for="vacancy-posted-date"></label><input type="date" id="vacancy-posted-date" class="vacancy-input" readonly>
+          <label for="vacancy-posted-date"></label>
+          <input
+            type="date"
+            id="vacancy-posted-date"
+            class="vacancy-input"
+            [value]="vacancy.postedDate"
+            readonly
+          >
         </div>
 
         <div class="vacancy-field">
           <h4 class="vacancy-label">Job Type:</h4>
-          <label for="vacancy-job-type"></label><input readonly placeholder="Enter job type" type="text" id="vacancy-job-type" class="vacancy-input">
+          <label for="vacancy-job-type"></label>
+          <input
+            readonly
+            placeholder="Enter job type"
+            type="text"
+            id="vacancy-job-type"
+            class="vacancy-input"
+            [value]="vacancy.jobType"
+          >
         </div>
 
         <div class="vacancy-field">
           <h4 class="vacancy-label">Salary</h4>
 
           <div class="salary-container">
-            <label for="vacancy-min-salary"></label><input readonly placeholder="0" type="text" id="vacancy-min-salary" class="vacancy-input salary-input">
+            <label for="vacancy-min-salary"></label>
+            <input
+              readonly
+              placeholder="0"
+              type="text"
+              id="vacancy-min-salary"
+              class="vacancy-input salary-input"
+              [value]="vacancy.minimumSalary"
+            >
             <span class="salary-unit">$ -</span>
           </div>
 
           <div class="salary-container">
-            <label for="vacancy-max-salary"></label><input readonly placeholder="1200" type="text" id="vacancy-max-salary" class="vacancy-input salary-input">
+            <label for="vacancy-max-salary"></label>
+            <input
+              readonly
+              placeholder="1200"
+              type="text"
+              id="vacancy-max-salary"
+              class="vacancy-input salary-input"
+              [value]="vacancy.maximumSalary"
+            >
             <span class="salary-unit">$</span>
           </div>
         </div>
@@ -58,6 +102,6 @@
   </section>
 
   <section>
-    <button class="SaveChanges" id="mobileSaveChanges"><b>Save changes</b></button>
+    <button class="ApplyNowVacant" id="mobileSaveChanges" (click)="applyVacancy()"><b>Apply now</b></button>
   </section>
 </main>

@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './main-tittle.component.css'
 })
 export class MainTittleComponent {
-    @Input() tittle: string = 'title';
+    @Input() tittle: string = 'tittle';
 }

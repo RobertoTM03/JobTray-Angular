@@ -3,6 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Company } from '../models/company';
 import { Observable } from 'rxjs';
 
+//TODO: Pasar la base de datos a firebase
+//TODO: Restringir usuarios que pueden hacer operaciones
+
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -22,6 +25,11 @@ export class CompanyService {
     return this.http.get<Company[]>(this.companiesUrl);
   }
 
+  getCompanyById(id: string) {
+    const url = `${this.companiesUrl}/${id}`;
+    return this.http.get<Company>(url);
+  }
+
   deleteCompany(id: string): Observable<Company> {
     let url = `${this.companiesUrl}/${id}`;
     return this.http.delete<Company>(url);
@@ -33,7 +41,6 @@ export class CompanyService {
   }
 
   addCompany(company: Company): Observable<Company> {
-    let url = `${this.companiesUrl}/${company.id}`;
-    return this.http.post<Company>(url, company, httpOptions);
+    return this.http.post<Company>(this.companiesUrl, company, httpOptions);
   }
 }

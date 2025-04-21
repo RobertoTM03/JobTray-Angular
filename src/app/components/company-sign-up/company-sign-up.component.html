@@ -1,7 +1,7 @@
 <main class="sign-page-container">
   <nav class="sign-toggle-nav">
-    <a href="#" onclick="redirectToJobSeekerSignUp(event, this)" class="sign-toggle-button">Job Seeker</a>
-    <a href="#" class="sign-toggle-button active">Company</a>
+    <a class="sign-toggle-button" (click)="goToJobSeekerSignUp()" role="button" tabindex="0">Job Seeker</a>
+    <a class="sign-toggle-button active" role="button">Company</a>
   </nav>
 
   <section class="sign-box">
@@ -10,31 +10,30 @@
     </div>
 
     <section class="sign-entry-form">
-      <form id="signup-company">
+      <form #signupForm="ngForm" (ngSubmit)="signUp()" id="signup-company">
         <label for="name">Company name</label>
-        <input type="text" id="name" placeholder="Enter your company name" required>
+        <input type="text" id="name" placeholder="Enter your company name" [(ngModel)]="companyName" name="companyName" required>
 
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Enter email address" required>
+        <input type="email" id="email" placeholder="Enter email address" [(ngModel)]="email" name="email" required>
 
         <label for="cif-nif">CIF/NIF</label>
-        <input type="text" id="cif-nif" name="cif-nif" placeholder="Enter your CIF/NIF"
-               pattern="^([ABCDEFGHJKLMNPQRSUVW]\d{7}[0-9A-J])|(\d{8}[A-Z])|([XYZ]\d{7}[A-Z])$"
-               title="Enter a valid CIF/NIF (Ej: A12345678, 12345678Z, X1234567T)"
-               required>
+        <input type="text" id="cif-nif" placeholder="Enter your CIF/NIF" [(ngModel)]="cifNif" name="cifNif" required>
 
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter password" required minlength="8">
+        <input type="password" id="password" placeholder="Enter password" [(ngModel)]="password" name="password" required>
 
         <label for="password-confirm">Confirm Password</label>
-        <input type="password" id="password-confirm" placeholder="Repeat the password" required minlength="8">
+        <input type="password" id="password-confirm" placeholder="Repeat the password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
 
-        <button type="submit" class="submit-button">Sign up</button>
+        <button type="submit" class="submit-button" role="button" tabindex="0" [disabled]="signupForm.invalid">
+          Sign up
+        </button>
       </form>
     </section>
 
     <div class="bottom-text">
-      <p>Already have an account? <a href="#" onclick="redirectToCompanySignIn(event, this)">Login</a></p>
+      <p>Already have an account? <a (click)="goToCompanySignIn()" role="link" tabindex="0">Login</a></p>
     </div>
   </section>
 </main>

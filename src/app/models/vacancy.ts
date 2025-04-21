@@ -6,7 +6,7 @@ import { Applicant } from './applicant';
 
 export interface Vacancy {
   id: string;
-  owner: number;
+  ownerId: string;
   name: string;
   stage: VacancyStage;
   postedDate: string;

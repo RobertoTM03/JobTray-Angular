@@ -1,7 +1,7 @@
 <main class="sign-page-container">
   <nav class="sign-toggle-nav">
-    <a href="#" onclick="redirectToJobSeekerSignIn(event, this)" class="sign-toggle-button">Job Seeker</a>
-    <a href="#" class="sign-toggle-button active">Company</a>
+    <a class="sign-toggle-button" (click)="goToJobSeekerSignIn()" role="button" tabindex="0">Job Seeker</a>
+    <a class="sign-toggle-button active" role="button">Company</a>
   </nav>
 
   <section class="sign-box">
@@ -10,19 +10,21 @@
     </div>
 
     <section class="sign-entry-form">
-      <form id="loginFormCompany">
+      <form id="loginFormCompany" (ngSubmit)="signIn()" #signInForm="ngForm">
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Enter email address" required>
+        <input type="email" id="email" placeholder="Enter email address" [(ngModel)]="email" name="email" required>
 
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter password" required minlength="8">
+        <input type="password" id="password" placeholder="Enter password" [(ngModel)]="password" name="password" required>
 
-        <button type="submit" class="submit-button" >Login</button>
+        <button type="submit" class="submit-button" role="button" tabindex="0" [disabled]="signInForm.invalid">Login</button>
       </form>
     </section>
 
     <div class="bottom-text">
-      <p>Don’t have an account? <a href="#" onclick="redirectToCompanySignUp(event, this)">Sign Up</a></p>
+      <p>Don’t have an account? <a (click)="goToCompanySignUp()" role="link" tabindex="0">Sign Up</a></p>
     </div>
   </section>
+
+  <p *ngIf="errorMessage" style="color:red;">{{ errorMessage }}</p>
 </main>

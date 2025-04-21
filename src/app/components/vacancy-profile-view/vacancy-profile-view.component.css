@@ -66,7 +66,6 @@ user-dashboard {
   border-radius: 4px;
   margin-top: 10px;
   margin-right: 10px;
-  text-align: right;
 }
 
 .ApplyNowVacant,
@@ -78,7 +77,6 @@ user-dashboard {
   border-radius: 4px;
   margin-top: 10px;
   margin-right: 20px;
-  text-align: right;
 }
 
 .margin-zero {
@@ -220,7 +218,8 @@ user-dashboard {
   margin-bottom: 0;
 }
 
-.button-save{
+.button-save,
+.button-apply{
   width:10%;
 }
 
@@ -249,11 +248,11 @@ user-dashboard {
   border-radius: 5px;
 }
 
-.button-save {
+.button-save,
+.button-apply{
   display: flex;
   justify-content: flex-end;
   padding-right: 20px;
-  margin-top: 10px;
 }
 
 #mobileApplyNow,
@@ -409,11 +408,11 @@ user-dashboard {
   .user-image-dashboard {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centrado vertical */
-    align-items: center;     /* Centrado horizontal */
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     width: 100%;
-    height: 100%; /* o puedes usar un valor fijo si prefieres */
+    height: 100%;
     padding: 20px 0;
   }
 
@@ -421,7 +420,7 @@ user-dashboard {
 
 .font-vacancy {
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Número máximo de líneas */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -435,7 +434,7 @@ user-dashboard {
 @media (max-width: 768px) {
   .font-vacancy {
     font-size: 4.5vw;
-    -webkit-line-clamp: 2; /* Mantiene 2 líneas en móvil */
+    -webkit-line-clamp: 2;
   }
 }
 .vacancy-tab-nav {

@@ -8,5 +8,5 @@ import {Component} from '@angular/core';
 })
 
 export class HeaderSignUpComponent {
-  imagen="/assets/asps.png";
+  logoImage="/assets/jobtray_logo_with_text.png";
 }

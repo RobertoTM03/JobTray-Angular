@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header-main-page',
@@ -8,5 +9,15 @@ import {Component} from '@angular/core';
 })
 
 export class HeaderMainPageComponent {
-  imagen = "/assets/asps.png";
+  constructor(private router: Router) {}
+
+  goToJobSeekerSignIn() {
+    this.router.navigate(['/sign-in-job-seeker']);
+  }
+
+  goToJobSeekerSignUp() {
+    this.router.navigate(['/sign-up-job-seeker']);
+  }
+
+  logoImage="/assets/jobtray_logo_with_text.png";
 }

@@ -1,5 +1,7 @@
 export enum EducationLevel {
-  Primary = 'primary',
+  ElementarySchool = 'Elementary School',
+  MiddleSchool = 'Middle School',
   HighSchool = 'High School',
-  University = 'University'
+  University = 'University',
+  Master = 'Master'
 }
