@@ -1,20 +1,21 @@
-import {Component} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
-import {VacancyService} from '../../services/vacancy.service';
-import {Vacancy} from '../../models/vacancy';
-import {UserSessionService} from '../../services/user-session.service';
-import {VacancyStage} from '../../enums/vacancy-stage.enum';
-import {JobType} from '../../enums/job-type.enum';
-import {EmploymentSector} from '../../enums/employment-sector.enum';
-import {EducationLevel} from '../../enums/education-level.enum';
-
-//TODO Implementar validación de formularios
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { VacancyService } from '../../services/vacancy.service';
+import { Vacancy } from '../../models/vacancy';
+import { UserSessionService } from '../../services/user-session.service';
+import { VacancyStage } from '../../enums/vacancy-stage.enum';
+import { JobType } from '../../enums/job-type.enum';
+import { EmploymentSector } from '../../enums/employment-sector.enum';
+import { EducationLevel } from '../../enums/education-level.enum';
+import { CommonModule, NgIf } from '@angular/common'; // 👈 importante
 
 @Component({
   selector: 'app-company-vacancy-post',
+  standalone: true, // 👈 esto es CLAVE
   imports: [
-    FormsModule
+    FormsModule,
+    NgIf // 👈 necesario para usar *ngIf en tu HTML
   ],
   templateUrl: './company-vacancy-post.component.html',
   styleUrl: './company-vacancy-post.component.css'
@@ -59,11 +60,16 @@ export class CompanyVacancyPostComponent {
       employmentSector: this.getEmploymentSectorFromString(this.vacancy.employmentSector),
       minimumEducationRequired: this.getEducationLevelFromString(this.vacancy.minimumEducationRequired),
       description: this.vacancy.description,
-      image:"/assets/vacancies/vacancy_default.jpg"
-    }
+      image: "/assets/vacancies/vacancy_default.jpg"
+    };
 
-    this.vacancyService.addVacancy(newVacancy).subscribe(() => {
-      this.router.navigate(['/job-listing']);
+    this.vacancyService.addVacancy(newVacancy).subscribe({
+      next: () => {
+        this.router.navigate(['/job-listing']);
+      },
+      error: (err) => {
+        console.error('Error al publicar la vacante:', err);
+      }
     });
   }
 
@@ -81,20 +87,18 @@ export class CompanyVacancyPostComponent {
   getJobTypeFromString(value: string): JobType {
     const values = Object.values(JobType) as string[];
     const match = values.find(v => v.toLowerCase() === value.toLowerCase());
-    return match as JobType | JobType.FullTime;
+    return match as JobType || JobType.FullTime;
   }
 
-  getEmploymentSectorFromString(value: string): EmploymentSector{
+  getEmploymentSectorFromString(value: string): EmploymentSector {
     const values = Object.values(EmploymentSector) as string[];
     const match = values.find(v => v.toLowerCase() === value.toLowerCase());
-    return match as EmploymentSector | EmploymentSector.Third;
+    return match as EmploymentSector || EmploymentSector.Third;
   }
 
   getEducationLevelFromString(value: string): EducationLevel {
     const values = Object.values(EducationLevel) as string[];
     const match = values.find(v => v.toLowerCase() === value.toLowerCase());
-    return match as EducationLevel | EducationLevel.HighSchool;
+    return match as EducationLevel || EducationLevel.HighSchool;
   }
 }
-
-

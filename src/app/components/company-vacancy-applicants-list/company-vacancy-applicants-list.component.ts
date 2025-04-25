@@ -81,6 +81,7 @@ export class CompanyVacancyApplicantsListComponent {
 
   toggleOptions(applicant: DisplayApplicant): void {
     applicant.showOptions = !applicant.showOptions;
+    console.log('Toggled options for:', applicant);
   }
 
   declineApplicant(applicant: DisplayApplicant): void {

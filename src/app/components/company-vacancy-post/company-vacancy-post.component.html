@@ -1,5 +1,5 @@
 <main class="vacancy-post-container">
-  <form #postVacancyForm="ngForm" (ngSubmit)="postVacancy()" >
+  <form #postVacancyForm="ngForm" (ngSubmit)="postVacancy()" novalidate>
 
     <!-- Job Title -->
     <section class="form-group-section">
@@ -8,7 +8,18 @@
         <p class="info-text">Job titles must describe one position</p>
       </div>
       <div class="input-container">
-        <input type="text" id="job-title" name="name" [(ngModel)]="vacancy.name" placeholder="You write a job title" required>
+        <input
+          type="text"
+          id="job-title"
+          name="name"
+          [(ngModel)]="vacancy.name"
+          placeholder="You write a job title"
+          required
+          #name="ngModel"
+        />
+        <div *ngIf="name.invalid && name.touched" class="error-message">
+          Job title is required.
+        </div>
       </div>
     </section>
 
@@ -20,11 +31,14 @@
       </div>
       <div class="input-container">
         <div class="checkbox-group">
-          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="full-time"> Full-Time</label>
-          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="part-time"> Part-Time</label>
-          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="remote"> Remote</label>
-          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="internship"> Internship</label>
-          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="contract"> Contract</label>
+          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="full-time" required> Full-Time</label>
+          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="part-time" required> Part-Time</label>
+          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="remote" required> Remote</label>
+          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="internship" required> Internship</label>
+          <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="contract" required> Contract</label>
+        </div>
+        <div *ngIf="!vacancy.jobType && postVacancyForm.touched" class="error-message">
+          Type of Employment is required.
         </div>
       </div>
     </section>
@@ -38,10 +52,32 @@
       <div class="input-container">
         <div class="salary-container">
           <span>$</span>
-          <input type="number" id="salary-min" name="minimumSalary" [(ngModel)]="vacancy.minimumSalary" placeholder="0">
+          <input
+            type="number"
+            id="salary-min"
+            name="minimumSalary"
+            [(ngModel)]="vacancy.minimumSalary"
+            placeholder="0"
+            required
+            #minimumSalary="ngModel"
+          >
           <span>to</span>
           <span>$</span>
-          <input type="number" id="salary-max" name="maximumSalary" [(ngModel)]="vacancy.maximumSalary" placeholder="100000">
+          <input
+            type="number"
+            id="salary-max"
+            name="maximumSalary"
+            [(ngModel)]="vacancy.maximumSalary"
+            placeholder="100000"
+            required
+            #maximumSalary="ngModel"
+          >
+        </div>
+        <div *ngIf="minimumSalary.invalid && minimumSalary.touched" class="error-message">
+          Minimum salary is required.
+        </div>
+        <div *ngIf="maximumSalary.invalid && maximumSalary.touched" class="error-message">
+          Maximum salary is required.
         </div>
       </div>
     </section>
@@ -54,9 +90,12 @@
       </div>
       <div class="input-container">
         <div class="radio-group">
-          <label><input type="radio" name="employmentSector" [(ngModel)]="vacancy.employmentSector" value="primary"> Primary</label>
-          <label><input type="radio" name="employmentSector" [(ngModel)]="vacancy.employmentSector" value="secondary"> Secondary</label>
-          <label><input type="radio" name="employmentSector" [(ngModel)]="vacancy.employmentSector" value="third"> Third</label>
+          <label><input type="radio" name="employmentSector" [(ngModel)]="vacancy.employmentSector" value="primary" required> Primary</label>
+          <label><input type="radio" name="employmentSector" [(ngModel)]="vacancy.employmentSector" value="secondary" required> Secondary</label>
+          <label><input type="radio" name="employmentSector" [(ngModel)]="vacancy.employmentSector" value="third" required> Third</label>
+        </div>
+        <div *ngIf="!vacancy.employmentSector && postVacancyForm.touched" class="error-message">
+          Employment sector is required.
         </div>
       </div>
     </section>
@@ -69,11 +108,14 @@
       </div>
       <div class="input-container">
         <div class="radio-group">
-          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="primary"> Elementary School</label>
-          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="secondary"> Middle School</label>
-          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="third"> High School</label>
-          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="university"> University</label>
-          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="master"> Master</label>
+          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="primary" required> Elementary School</label>
+          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="secondary" required> Middle School</label>
+          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="third" required> High School</label>
+          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="university" required> University</label>
+          <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="master" required> Master</label>
+        </div>
+        <div *ngIf="!vacancy.minimumEducationRequired && postVacancyForm.touched" class="error-message">
+          Education level is required.
         </div>
       </div>
     </section>
@@ -85,10 +127,26 @@
         <p class="info-text">Describe the job vacancy</p>
       </div>
       <div class="input-container">
-        <textarea id="education-description" name="description" [(ngModel)]="vacancy.description" placeholder="This description will be displayed publicly"></textarea>
+        <textarea
+          id="education-description"
+          name="description"
+          [(ngModel)]="vacancy.description"
+          placeholder="This description will be displayed publicly"
+          required
+        ></textarea>
+        <div *ngIf="!vacancy.description && postVacancyForm.touched" class="error-message">
+          Job description is required.
+        </div>
       </div>
     </section>
 
-    <button type="submit" class="vacancy-submit-btn">Submit offer</button>
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="vacancy-submit-btn"
+      [disabled]="postVacancyForm.invalid"
+    >
+      Submit offer
+    </button>
   </form>
 </main>

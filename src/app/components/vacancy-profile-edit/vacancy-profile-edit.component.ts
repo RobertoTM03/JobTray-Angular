@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import {UserSessionService} from '../../services/user-session.service';
-import {VacancyService} from '../../services/vacancy.service';
-import {ActivatedRoute} from '@angular/router';
-import {Vacancy} from '../../models/vacancy';
-import {FormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { UserSessionService } from '../../services/user-session.service';
+import { VacancyService } from '../../services/vacancy.service';
+import { ActivatedRoute } from '@angular/router';
+import { Vacancy } from '../../models/vacancy';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-vacancy-profile-edit',
+  standalone: true,
   imports: [
     FormsModule,
     NgIf,
@@ -17,31 +18,35 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
   templateUrl: './vacancy-profile-edit.component.html',
   styleUrl: './vacancy-profile-edit.component.css'
 })
-
 export class VacancyProfileEditComponent {
-  vacancyId: string = "";
+  vacancyId: string = '';
   currentVacancy: Vacancy | null = null;
+  imagen = '/assets/asps.png';
 
   constructor(
     private userSessionService: UserSessionService,
     private vacancyService: VacancyService,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
-    if (id == null) {
-      console.error("problema al cargar la id de la url");
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id) {
+      console.error('Problema al cargar la ID de la URL');
       return;
     }
     this.vacancyId = id;
 
     this.vacancyService.getVacancyById(this.vacancyId).subscribe({
       next: (res) => {
-        this.currentVacancy = res;
+        this.currentVacancy = res || null;
+      },
+      error: (err) => {
+        console.error('Error al cargar la vacante:', err);
+        this.snackBar.open('Error al cargar la vacante', 'Cerrar', { duration: 3000 });
       }
-    })
+    });
   }
 
   saveChanges(): void {
@@ -66,6 +71,4 @@ export class VacancyProfileEditComponent {
       }
     });
   }
-
-  imagen="/assets/asps.png";
 }

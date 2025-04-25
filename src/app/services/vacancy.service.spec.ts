@@ -63,7 +63,8 @@ describe('VacancyService', () => {
 
   it('debería eliminar una vacante', () => {
     service.deleteVacancy('1').subscribe(response => {
-      expect(response).toEqual(mockVacancy);
+      // @ts-ignore
+      return expect(response).toEqual(mockVacancy);
     });
 
     const req = httpMock.expectOne('http://localhost:3000/vacancies/1');

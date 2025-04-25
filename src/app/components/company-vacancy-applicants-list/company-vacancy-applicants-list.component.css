@@ -80,6 +80,8 @@
   padding: 6px 12px;
   font-size: 14px;
   cursor: pointer;
+  z-index: 9999;
+  position: relative;
 }
 
 .vacancy-list-row td:first-child,
@@ -131,6 +133,7 @@
   font-size: 14px;
   width: 100%;
 }
+
 
 .options-menu button:hover {
   background-color: #c0392b;

@@ -15,18 +15,55 @@
         <input type="text" id="name" placeholder="Enter your company name" [(ngModel)]="companyName" name="companyName" required>
 
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Enter email address" [(ngModel)]="email" name="email" required>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter email address"
+          [(ngModel)]="email"
+          name="email"
+          required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          title="Please enter a valid email address">
 
         <label for="cif-nif">CIF/NIF</label>
-        <input type="text" id="cif-nif" placeholder="Enter your CIF/NIF" [(ngModel)]="cifNif" name="cifNif" required>
+        <input
+          type="text"
+          id="cif-nif"
+          placeholder="Enter your CIF/NIF"
+          [(ngModel)]="cifNif"
+          name="cifNif"
+          required
+          pattern="^[A-HJ-NP-TV-Z][0-9]{7}[A-Z]$|^[A-HJ-NP-TV-Z]{1}[0-9]{8}[A-J]$"
+          title="CIF/NIF should follow the format: X1234567Y or X12345678A">
 
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter password" [(ngModel)]="password" name="password" required>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          minlength="8"
+          title="Password must be at least 8 characters long">
 
         <label for="password-confirm">Confirm Password</label>
-        <input type="password" id="password-confirm" placeholder="Repeat the password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+        <input
+          type="password"
+          id="password-confirm"
+          placeholder="Repeat the password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          required
+          minlength="8"
+          title="Password must be at least 8 characters long">
 
-        <button type="submit" class="submit-button" role="button" tabindex="0" [disabled]="signupForm.invalid">
+        <button
+          type="submit"
+          class="submit-button"
+          role="button"
+          tabindex="0"
+          [disabled]="signupForm.invalid">
           Sign up
         </button>
       </form>
