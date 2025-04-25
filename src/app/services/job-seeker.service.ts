@@ -1,46 +1,59 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {JobSeeker} from '../models/job-seeker';
-
-//TODO: Pasar la base de datos a firebase
-//TODO: Restringir usuarios que pueden hacer operaciones
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-  }),
-}
+import {
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  docData,
+  setDoc,
+  updateDoc,
+  deleteDoc
+} from '@angular/fire/firestore';
+import { JobSeeker } from '../models/job-seeker';
+import { Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class JobSeekerService {
-    private jobSeekersUrl = "http://localhost:3000/jobSeekers"
+  private collectionPath = 'jobSeekers';
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private firestore: Firestore) {}
 
-    getJobSeekers(){
-      return this.http.get<JobSeeker[]>(this.jobSeekersUrl)
-    }
+  /** Obtener todos los Job Seekers */
+  getJobSeekers(): Observable<JobSeeker[]> {
+    const jobSeekersRef = collection(this.firestore, this.collectionPath);
+    return collectionData(jobSeekersRef, { idField: 'id' }) as Observable<JobSeeker[]>;
+  }
 
-    getJobSeekerById(id: string) {
-      const url = `${this.jobSeekersUrl}/${id}`;
-      return this.http.get<JobSeeker>(url);
-    }
+  /** Obtener un Job Seeker por ID */
+  getJobSeekerById(id: string): Observable<JobSeeker> {
+    const jobSeekerRef = doc(this.firestore, `${this.collectionPath}/${id}`);
+    return docData(jobSeekerRef, { idField: 'id' }) as Observable<JobSeeker>;
+  }
 
-    deleteJobSeeker(id: string){
-      let url = `${this.jobSeekersUrl}/${id}`;
-      return this.http.delete<JobSeeker>(url);
-    }
+  /** Añadir un nuevo Job Seeker con ID automático */
+  addJobSeeker(jobSeeker: JobSeeker): Observable<void> {
+    const jobSeekerRef = doc(this.firestore, `${this.collectionPath}/${jobSeeker.id}`);
+    return from(setDoc(jobSeekerRef, jobSeeker));
+  }
 
-    updateJobSeeker(jobSeeker: JobSeeker){
-      let url = `${this.jobSeekersUrl}/${jobSeeker.id}`;
-      return this.http.put<JobSeeker>(url, jobSeeker, httpOptions);
-    }
 
-    addJobSeeker(jobSeeker: JobSeeker) {
-      return this.http.post<JobSeeker>(this.jobSeekersUrl, jobSeeker, httpOptions);
-    }
+  /** Añadir o sobrescribir Job Seeker con ID específico */
+  setJobSeeker(id: string, jobSeeker: JobSeeker): Observable<void> {
+    const jobSeekerRef = doc(this.firestore, `${this.collectionPath}/${id}`);
+    return from(setDoc(jobSeekerRef, jobSeeker));
+  }
+
+  /** Actualizar un Job Seeker (requiere .id) */
+  updateJobSeeker(jobSeeker: JobSeeker): Observable<void> {
+    const jobSeekerRef = doc(this.firestore, `${this.collectionPath}/${jobSeeker.id}`);
+    return from(updateDoc(jobSeekerRef, { ...jobSeeker }));
+  }
+
+  /** Eliminar un Job Seeker por ID */
+  deleteJobSeeker(id: string): Observable<void> {
+    const jobSeekerRef = doc(this.firestore, `${this.collectionPath}/${id}`);
+    return from(deleteDoc(jobSeekerRef));
+  }
 }
