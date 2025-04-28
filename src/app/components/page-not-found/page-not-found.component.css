@@ -1,0 +1,35 @@
+.not-found-container {
+  text-align: center;
+  padding: 100px 20px;
+  font-family: Ebrima, sans-serif;
+}
+
+.error-code {
+  font-size: 120px;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #555;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.return-btn {
+  text-decoration: none;
+  color: #fff;
+  background-color: #1D4F9A;
+  padding: 12px 24px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.return-btn:hover {
+  background-color: #0056b3;
+}
