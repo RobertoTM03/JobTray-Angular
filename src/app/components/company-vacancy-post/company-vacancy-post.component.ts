@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 import { Router } from '@angular/router';
 import { VacancyService } from '../../services/vacancy.service';
 import { Vacancy } from '../../models/vacancy';
@@ -8,25 +8,20 @@ import { VacancyStage } from '../../enums/vacancy-stage.enum';
 import { JobType } from '../../enums/job-type.enum';
 import { EmploymentSector } from '../../enums/employment-sector.enum';
 import { EducationLevel } from '../../enums/education-level.enum';
-import { CommonModule, NgIf } from '@angular/common'; // 👈 importante
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-company-vacancy-post',
-  standalone: true, // 👈 esto es CLAVE
+  standalone: true,
   imports: [
     FormsModule,
-    NgIf // 👈 necesario para usar *ngIf en tu HTML
+    NgIf
   ],
   templateUrl: './company-vacancy-post.component.html',
   styleUrl: './company-vacancy-post.component.css'
 })
-export class CompanyVacancyPostComponent {
-  constructor(
-    private router: Router,
-    private vacancyService: VacancyService,
-    private userSessionService: UserSessionService
-  ) {}
 
+export class CompanyVacancyPostComponent {
   vacancy = {
     name: '',
     jobType: '',
@@ -37,11 +32,26 @@ export class CompanyVacancyPostComponent {
     description: ''
   };
 
-  postVacancy(): void {
+  submitted = false; // ✅ NUEVO
+
+  constructor(
+    private router: Router,
+    private vacancyService: VacancyService,
+    private userSessionService: UserSessionService
+  ) {}
+
+  postVacancy(form: NgForm): void {
+    this.submitted = true;
+
+    if (form.invalid) {
+      Object.values(form.controls).forEach(control => control?.markAsTouched?.());
+      return;
+    }
+
     const userData = this.userSessionService.getUserData();
     const randomId: string = Math.random().toString(36).substring(7).valueOf();
 
-    if (userData == null) {
+    if (!userData) {
       console.error('No user data found.');
       return;
     }
@@ -64,18 +74,13 @@ export class CompanyVacancyPostComponent {
     };
 
     this.vacancyService.addVacancy(newVacancy).subscribe({
-      next: () => {
-        this.router.navigate(['/job-listing']);
-      },
-      error: (err) => {
-        console.error('Error al publicar la vacante:', err);
-      }
+      next: () => this.router.navigate(['/job-listing']),
+      error: err => console.error('Error when posting the vacancy:', err)
     });
   }
 
   getCurrentDateAsString(): string {
-    const date = new Date();
-    return date.toISOString().split('T')[0];
+    return new Date().toISOString().split('T')[0];
   }
 
   getDueDateAsString(): string {
@@ -85,20 +90,17 @@ export class CompanyVacancyPostComponent {
   }
 
   getJobTypeFromString(value: string): JobType {
-    const values = Object.values(JobType) as string[];
-    const match = values.find(v => v.toLowerCase() === value.toLowerCase());
+    const match = Object.values(JobType).find(v => v.toLowerCase() === value.toLowerCase());
     return match as JobType || JobType.FullTime;
   }
 
   getEmploymentSectorFromString(value: string): EmploymentSector {
-    const values = Object.values(EmploymentSector) as string[];
-    const match = values.find(v => v.toLowerCase() === value.toLowerCase());
+    const match = Object.values(EmploymentSector).find(v => v.toLowerCase() === value.toLowerCase());
     return match as EmploymentSector || EmploymentSector.Third;
   }
 
   getEducationLevelFromString(value: string): EducationLevel {
-    const values = Object.values(EducationLevel) as string[];
-    const match = values.find(v => v.toLowerCase() === value.toLowerCase());
+    const match = Object.values(EducationLevel).find(v => v.toLowerCase() === value.toLowerCase());
     return match as EducationLevel || EducationLevel.HighSchool;
   }
 }

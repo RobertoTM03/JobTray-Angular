@@ -10,12 +10,13 @@
       <button class="job-seeker-find-jobs-button" (click)="goToFindJobs()" role="button" tabindex="0">Find a job</button>
 
       <div class="mobile-btn-wrapper">
-        <button class="mobile-btn" >☰</button>
+        <button type="button" class="mobile-btn" (click)="toggleMobileMenu()">☰</button>
 
-        <div class="mobile-btn-container">
+        <div class="mobile-btn-container" [ngClass]="{ 'active': isMobileMenuOpen }">
           <button class="mobile-button" (click)="goToFindJobs()">Find a job</button>
         </div>
       </div>
+
     </section>
 
 
@@ -29,7 +30,7 @@
       </button>
 
       <div class="popup-menu">
-        <button class="popup-btn" (click)="goToEditProfile(currentJobSeeker?.id)" role="button" tabindex="0">Edit profile</button>
+        <button class="popup-btn" (click)="goToEditProfile()" role="button" tabindex="0">Edit profile</button>
         <button class="popup-btn logout" (click)="logOut()">Log out</button>
       </div>
     </section>

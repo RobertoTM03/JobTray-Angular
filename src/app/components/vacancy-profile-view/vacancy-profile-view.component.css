@@ -23,6 +23,7 @@ user-dashboard {
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
 }
+
 .user-image-vacancy{
   border-radius: 100%;
   width: 60px;
@@ -32,9 +33,7 @@ user-dashboard {
   border: 1px solid #aaabaf;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
-
 }
-
 
 .text-user {
   overflow: hidden;
@@ -103,8 +102,6 @@ user-dashboard {
   border-radius: 5px;
   padding: 8px;
 }
-
-
 
 .user-image:hover {
   opacity: 0.7;
@@ -213,7 +210,6 @@ user-dashboard {
 
 .font-vacancy{
   font-size:xx-large;
-
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -261,7 +257,6 @@ user-dashboard {
   margin: 30px auto 30px auto;
 }
 
-
 .space-write h3 {
   margin-left: 50px;
 }
@@ -306,7 +301,7 @@ user-dashboard {
 
   #space-user {
     display: flex;
-    flex-direction: column-reverse; /* Apilar elementos en columna */
+    flex-direction: column-reverse;
     align-items: stretch;
     min-height: auto ;
     height: auto ;
@@ -332,7 +327,6 @@ user-dashboard {
     width: calc(100vw - 80px);
   }
 
-
   .vacancy-request {
     order: -1;
     width: calc(100vw - 80px);
@@ -347,7 +341,6 @@ user-dashboard {
   #contact-information {
     margin-left: 30px;
   }
-
 
   .text-user,
   .portfolio-textarea{
@@ -387,7 +380,6 @@ user-dashboard {
     width: 100px;
   }
 
-  /* Salario específico */
   .salary-container {
     display: flex;
     justify-content: flex-end;
@@ -415,7 +407,6 @@ user-dashboard {
     height: 100%;
     padding: 20px 0;
   }
-
 }
 
 .font-vacancy {
@@ -428,7 +419,7 @@ user-dashboard {
   text-align: center;
   padding: 0 10px;
   box-sizing: border-box;
-  font-size: 2rem; /* Escritorio */
+  font-size: 2rem;
 }
 
 @media (max-width: 768px) {
@@ -437,6 +428,7 @@ user-dashboard {
     -webkit-line-clamp: 2;
   }
 }
+
 .vacancy-tab-nav {
   list-style: none;
   display: flex;

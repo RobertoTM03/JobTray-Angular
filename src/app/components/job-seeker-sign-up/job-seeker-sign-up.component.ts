@@ -1,32 +1,29 @@
 import { Component } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { NgForm, FormsModule } from '@angular/forms';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import {JobSeekerService} from '../../services/job-seeker.service';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {JobSeeker} from '../../models/job-seeker';
-import {FirebaseUser} from '../../models/firebaseUser';
-import {UserSessionService} from '../../services/user-session.service';
-
-//TODO Implementar validación de formularios
+import { JobSeekerService } from '../../services/job-seeker.service';
+import { FirebaseUser } from '../../models/firebaseUser';
+import { UserSessionService } from '../../services/user-session.service';
+import { CommonModule } from '@angular/common';
+import { JobSeeker } from '../../models/job-seeker';
 
 @Component({
   selector: 'app-job-seeker-sign-up',
   templateUrl: './job-seeker-sign-up.component.html',
-  imports: [
-    FormsModule,
-    CommonModule
-  ],
-  styleUrl: './job-seeker-sign-up.component.css'
+  styleUrls: ['./job-seeker-sign-up.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
-export class JobSeekerSignUpComponent {
-  fullName: string = "";
-  email: string = "";
-  phoneNumber: string = "";
-  password: string = "";
-  confirmPassword: string = "";
-  errorMessage: string = "";
 
+export class JobSeekerSignUpComponent {
+  fullName = '';
+  email = '';
+  phoneNumber = '';
+  password = '';
+  confirmPassword = '';
+  errorMessage = '';
+  submitted = false;
 
   constructor(
     private router: Router,
@@ -43,9 +40,14 @@ export class JobSeekerSignUpComponent {
     this.router.navigate(['/sign-in-job-seeker']);
   }
 
-  async signUp(){
-    if (this.password != this.confirmPassword){
-      this.errorMessage = "Passwords don't match";
+  async signUp(form: NgForm) {
+    this.submitted = true;
+
+    if (form.invalid || this.password !== this.confirmPassword) {
+      Object.values(form.controls).forEach(control => control.markAsTouched());
+      if (this.password !== this.confirmPassword) {
+        this.errorMessage = "Passwords don't match";
+      }
       return;
     }
 
@@ -57,11 +59,9 @@ export class JobSeekerSignUpComponent {
         uid: user.uid,
         name: this.fullName,
         email: this.email,
-      }
+      };
 
-      this.userSessionService.setUserData(firebaseUser);
-
-      const currentJobSeeker: JobSeeker = {
+      const jobSeeker: JobSeeker = {
         id: user.uid,
         fullName: this.fullName,
         email: this.email,
@@ -72,12 +72,17 @@ export class JobSeekerSignUpComponent {
         image: "/assets/jobSeekers/jobSeeker-default.jpg",
       }
 
-      this.jobSeekerService.addJobSeeker(currentJobSeeker).subscribe(() => {
-        this.router.navigate(['/find-jobs']);
+      this.jobSeekerService.addJobSeeker(jobSeeker).subscribe({
+        next: () => {
+          this.userSessionService.setUserData(firebaseUser);
+          this.router.navigate(['/find-jobs']);
+        },
+        error: () => {
+          this.errorMessage = 'Error creating user data';
+        }
       });
     } catch (error: any) {
-      this.errorMessage = error.message;
-      console.error('Error al registrar:', error);
+      this.errorMessage = 'Registration failed: ' + error.message;
     }
   }
 }

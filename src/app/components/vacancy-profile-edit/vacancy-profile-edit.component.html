@@ -1,6 +1,6 @@
 <main *ngIf="currentVacancy as vacancy">
   <section class="father-vacancy">
-    <form (ngSubmit)="saveChanges()"> <!-- Usar ngSubmit para el submit del formulario -->
+    <form (ngSubmit)="saveChanges()">
 
       <section class="dashboard-vacancy-new">
         <section class="item-vacancy">
@@ -13,7 +13,7 @@
         </section>
 
         <section class="button-save">
-          <button class="SaveChanges" id="desktopSaveChanges" type="submit"> <!-- Cambiado a type="submit" -->
+          <button class="SaveChanges" id="desktopSaveChanges" type="submit">
             <b>Save Changes</b>
           </button>
         </section>
@@ -96,7 +96,7 @@
     </form>
 
     <section>
-      <button class="SaveChanges" id="mobileSaveChanges" type="submit" (click)="saveChanges()"> <!-- Cambiado a type="submit" -->
+      <button class="SaveChanges" id="mobileSaveChanges" type="submit" (click)="saveChanges()">
         <b>Save changes</b>
       </button>
     </section>

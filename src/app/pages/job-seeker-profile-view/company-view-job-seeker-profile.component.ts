@@ -15,6 +15,7 @@ import {MainTittleComponent} from '../../components/main-tittle/main-tittle.comp
   templateUrl: './company-view-job-seeker-profile.component.html',
   styleUrl: './company-view-job-seeker-profile.component.css'
 })
+
 export class CompanyViewJobSeekerProfileComponent {
 
 }

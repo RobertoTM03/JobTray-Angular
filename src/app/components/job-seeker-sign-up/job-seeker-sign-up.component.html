@@ -10,9 +10,20 @@
     </div>
 
     <section class="sign-entry-form">
-      <form #signupForm="ngForm" (ngSubmit)="signUp()" id="signup-user">
+      <form #signupForm="ngForm" (ngSubmit)="signUp(signupForm)" id="signup-user">
         <label for="name">Full name</label>
-        <input type="text" id="name" placeholder="Enter your full name" [(ngModel)]="fullName" name="fullName" required>
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter your full name"
+          [(ngModel)]="fullName"
+          name="fullName"
+          required
+          #fullNameField="ngModel"
+        />
+        <div *ngIf="fullNameField.invalid && (fullNameField.touched || submitted)" class="input-error-message">
+          <p *ngIf="fullNameField.errors?.['required']">Full name is required.</p>
+        </div>
 
         <label for="email">Email Address</label>
         <input
@@ -22,8 +33,13 @@
           [(ngModel)]="email"
           name="email"
           required
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-          title="Please enter a valid email address">
+          email
+          #emailField="ngModel"
+        />
+        <div *ngIf="emailField.invalid && (emailField.touched || submitted)" class="input-error-message">
+          <p *ngIf="emailField.errors?.['required']">Email is required.</p>
+          <p *ngIf="emailField.errors?.['email']">Please enter a valid email.</p>
+        </div>
 
         <label for="phone-number">Phone number</label>
         <input
@@ -34,7 +50,12 @@
           name="phoneNumber"
           required
           pattern="^\+34\s\d{3}\s\d{2}\s\d{2}\s\d{2}$"
-          title="Phone number must be in the format: +34 555 67 89 11">
+          #phoneField="ngModel"
+        />
+        <div *ngIf="phoneField.invalid && (phoneField.touched || submitted)" class="input-error-message">
+          <p *ngIf="phoneField.errors?.['required']">Phone number is required.</p>
+          <p *ngIf="phoneField.errors?.['pattern']">Use format: +34 555 67 89 11</p>
+        </div>
 
         <label for="password">Password</label>
         <input
@@ -45,26 +66,28 @@
           name="password"
           required
           minlength="8"
-          title="Password must be at least 8 characters long">
+          #passwordField="ngModel"
+        />
+        <div *ngIf="passwordField.invalid && (passwordField.touched || submitted)" class="input-error-message">
+          <p *ngIf="passwordField.errors?.['required']">Password is required.</p>
+          <p *ngIf="passwordField.errors?.['minlength']">Minimum 8 characters.</p>
+        </div>
 
-        <label for="password-confirm">Confirm Password</label>
+        <label for="confirmPassword">Confirm Password</label>
         <input
           type="password"
-          id="password-confirm"
-          placeholder="Repeat the password"
+          id="confirmPassword"
+          placeholder="Confirm your password"
           [(ngModel)]="confirmPassword"
           name="confirmPassword"
           required
-          minlength="8"
-          title="Password must be at least 8 characters long">
+        />
+        <div *ngIf="submitted && password !== confirmPassword" class="input-error-message">
+          <p>Passwords don't match.</p>
+        </div>
 
-        <button
-          type="submit"
-          class="submit-button"
-          role="button"
-          tabindex="0"
-          [disabled]="signupForm.invalid">
-          Sign up
+        <button type="submit" class="submit-button" role="button" tabindex="0">
+          Sign Up
         </button>
       </form>
     </section>
@@ -74,5 +97,5 @@
     </div>
   </section>
 
-  <p *ngIf="errorMessage" style="color:red;">{{ errorMessage }}</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 </main>

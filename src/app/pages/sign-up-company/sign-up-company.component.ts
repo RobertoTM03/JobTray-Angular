@@ -13,6 +13,6 @@ import {FooterComponent} from '../../components/footer/footer.component';
   templateUrl: './sign-up-company.component.html',
   styleUrl: './sign-up-company.component.css'
 })
-export class SignUpCompanyComponent {
 
+export class SignUpCompanyComponent {
 }

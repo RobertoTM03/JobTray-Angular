@@ -17,5 +17,6 @@ import {FooterComponent} from '../../components/footer/footer.component';
   templateUrl: './job-listing-company.component.html',
   styleUrl: './job-listing-company.component.css'
 })
+
 export class JobListingCompanyComponent {
 }

@@ -16,6 +16,7 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './job-seeker-profile.component.html',
   styleUrl: './job-seeker-profile.component.css'
 })
+
 export class JobSeekerProfileComponent {
   currentJobSeeker: JobSeeker | null = null;
   jobSeekerId: string = "";
@@ -30,7 +31,7 @@ export class JobSeekerProfileComponent {
   ngOnInit() {
     let id = this.userSessionService.getUserData()?.uid
     if (id == null) {
-      console.error("problema al cargar la id de la url");
+      console.error("Problem loading url id");
       return;
     }
     this.jobSeekerId = id;
@@ -41,19 +42,20 @@ export class JobSeekerProfileComponent {
       }
     })
   }
+
   saveChanges(): void {
     if (!this.currentJobSeeker) return;
 
     this.jobSeekerService.updateJobSeeker(this.currentJobSeeker).subscribe({
       next: () => {
-        this.snackBar.open('Perfil actualizado con éxito', 'Cerrar', {
+        this.snackBar.open('Profile successfully updated', 'Close', {
           duration: 3000,
           panelClass: ['snack-center']
         });
       },
       error: err => {
-        console.error('Error al guardar:', err);
-        this.snackBar.open('Error al actualizar el perfil', 'Cerrar', {
+        console.error('Error saving:', err);
+        this.snackBar.open('Error updating profile', 'Close', {
           duration: 4000,
           panelClass: ['snack-center-error']
         });

@@ -1,27 +1,26 @@
 import { Component } from '@angular/core';
-import {Router} from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {Auth, signInWithEmailAndPassword} from '@angular/fire/auth';
-import {JobSeekerService} from '../../services/job-seeker.service';
-import {UserSessionService} from '../../services/user-session.service';
-import {FirebaseUser} from '../../models/firebaseUser';
+import { Router } from '@angular/router';
+import {FormsModule, NgForm} from '@angular/forms';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { JobSeekerService } from '../../services/job-seeker.service';
+import { UserSessionService } from '../../services/user-session.service';
+import { FirebaseUser } from '../../models/firebaseUser';
 import {NgIf} from '@angular/common';
-
-//TODO Implementar validación de formularios
 
 @Component({
   selector: 'app-job-seeker-sign-in',
+  templateUrl: './job-seeker-sign-in.component.html',
   imports: [
     FormsModule,
     NgIf
   ],
-  templateUrl: './job-seeker-sign-in.component.html',
-  styleUrl: './job-seeker-sign-in.component.css'
+  styleUrls: ['./job-seeker-sign-in.component.css']
 })
 export class JobSeekerSignInComponent {
-  email: string = "";
-  password: string = "";
-  errorMessage: string = "";
+  email = '';
+  password = '';
+  errorMessage = '';
+  submitted = false;
 
   constructor(
     private router: Router,
@@ -38,7 +37,16 @@ export class JobSeekerSignInComponent {
     this.router.navigate(['/sign-up-job-seeker']);
   }
 
-  async signIn(){
+  async signIn(form: NgForm) {
+    this.submitted = true;
+
+    if (form.invalid) {
+      Object.values(form.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      return;
+    }
+
     try {
       const userCredential = await signInWithEmailAndPassword(
         this.auth,
@@ -50,23 +58,27 @@ export class JobSeekerSignInComponent {
 
       const firebaseUser: FirebaseUser = {
         uid: user.uid,
-        name: user.displayName || "",
+        name: user.displayName || '',
         email: this.email,
-      }
+      };
 
       this.jobSeekerService.getJobSeekerById(user.uid).subscribe({
         next: (jobSeeker) => {
+          if (!jobSeeker) {
+            this.errorMessage = 'This user is not registered as Job Seeker.';
+            return;
+          }
+
           this.userSessionService.setUserData(firebaseUser);
           this.router.navigate(['/find-jobs']);
         },
-        error: (err) => {
-          this.errorMessage = 'No se encontró información del usuario.';
-          console.error(err);
+        error: () => {
+          this.errorMessage = 'This user is not registered as Job Seeker.';
         }
       });
+
     } catch (error: any) {
-      this.errorMessage = 'Email o contraseña incorrectos.';
-      console.error(error);
+      this.errorMessage = 'Incorrect email or password.';
     }
   }
 }

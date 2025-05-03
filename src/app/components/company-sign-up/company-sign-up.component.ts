@@ -1,30 +1,29 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import {CompanyService} from '../../services/company.service';
-import {FirebaseUser} from '../../models/firebaseUser';
-import {UserSessionService} from '../../services/user-session.service';
-import {Company} from '../../models/company';
-
-//TODO Implementar validación de formularios
+import { CompanyService } from '../../services/company.service';
+import { FirebaseUser } from '../../models/firebaseUser';
+import { UserSessionService } from '../../services/user-session.service';
+import { Company } from '../../models/company';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-company-sign-up',
-  imports: [
-    FormsModule
-  ],
   templateUrl: './company-sign-up.component.html',
-  styleUrl: './company-sign-up.component.css'
+  styleUrls: ['./company-sign-up.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 
 export class CompanySignUpComponent {
-  companyName: string = "";
-  email: string = "";
-  cifNif: string = "";
-  password: string = "";
-  confirmPassword: string = "";
-  errorMessage: string = "";
+  companyName = '';
+  email = '';
+  cifNif = '';
+  password = '';
+  confirmPassword = '';
+  errorMessage = '';
+  submitted = false;
 
   constructor(
     private router: Router,
@@ -41,10 +40,14 @@ export class CompanySignUpComponent {
     this.router.navigate(['/sign-up-job-seeker']);
   }
 
+  async signUp(form: NgForm) {
+    this.submitted = true;
 
-  async signUp(){
-    if (this.password != this.confirmPassword){
-      this.errorMessage = "Passwords don't match";
+    if (form.invalid || this.password !== this.confirmPassword) {
+      Object.values(form.controls).forEach(control => control.markAsTouched());
+      if (this.password !== this.confirmPassword) {
+        this.errorMessage = "Passwords don't match";
+      }
       return;
     }
 
@@ -56,11 +59,9 @@ export class CompanySignUpComponent {
         uid: user.uid,
         name: this.companyName,
         email: this.email,
-      }
+      };
 
-      this.userSessionService.setUserData(firebaseUser);
-
-      const currentCompany: Company = {
+      const company: Company = {
         id: user.uid,
         name: this.companyName,
         cifNif: this.cifNif,
@@ -68,12 +69,17 @@ export class CompanySignUpComponent {
         image: "/assets/companies/company-default.jpg",
       }
 
-      this.companyService.addCompany(currentCompany).subscribe(() => {
-        this.router.navigate(['/job-listing']);
+      this.companyService.addCompany(company).subscribe({
+        next: () => {
+          this.userSessionService.setUserData(firebaseUser);
+          this.router.navigate(['/job-listing']);
+        },
+        error: () => {
+          this.errorMessage = 'Error creating company data';
+        }
       });
     } catch (error: any) {
-      this.errorMessage = error.message;
-      console.error('Error al registrar:', error);
+      this.errorMessage = 'Registration failed: ' + error.message;
     }
   }
 }

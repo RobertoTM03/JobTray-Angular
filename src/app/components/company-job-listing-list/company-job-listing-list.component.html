@@ -37,7 +37,6 @@
           <button class="see-profiles" (click)="seeVacancy(vacancy.id)">See Vacancy</button>
           <button class="more-options" (click)="toggleMenu(vacancy.id)">···</button>
 
-          <!-- Mostrar el menú de opciones solo si la vacante seleccionada es igual a la que tiene el id -->
           <div *ngIf="selectedVacancyId === vacancy.id" class="options-menu">
             <button (click)="deleteVacancy(vacancy.id)">Delete Vacancy</button>
           </div>

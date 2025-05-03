@@ -21,6 +21,6 @@ import {FooterComponent} from '../../components/footer/footer.component';
   templateUrl: './vacancy-applicants-list-company.component.html',
   styleUrl: './vacancy-applicants-list-company.component.css'
 })
-export class VacancyApplicantsListCompanyComponent {
 
+export class VacancyApplicantsListCompanyComponent {
 }

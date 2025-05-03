@@ -3,14 +3,18 @@ import {Router} from '@angular/router';
 import {UserSessionService} from '../../services/user-session.service';
 import {CompanyService} from '../../services/company.service';
 import {Company} from '../../models/company';
+import {Auth} from '@angular/fire/auth';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-header-company',
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './header-company.component.html',
   styleUrl: './header-company.component.css',
-
 })
+
 export class HeaderCompanyComponent {
   currentCompany: Company | null = null;
 
@@ -18,6 +22,7 @@ export class HeaderCompanyComponent {
     private router: Router,
     private userSessionService: UserSessionService,
     private companyService: CompanyService,
+    private auth: Auth
   ) {}
 
   ngOnInit() {
@@ -41,10 +46,17 @@ export class HeaderCompanyComponent {
     this.router.navigate(['/post-vacancy']);
   }
 
-  logOut() {
-    this.userSessionService.clearUserData();
+  logOut(): void {
+    this.auth.signOut().then(() => {
+      this.userSessionService.clearUserData();
+      window.location.href = '/main-page';
+    });
+  }
 
-    this.router.navigate(['/main-page']);
+  isMobileMenuOpen: boolean = false;
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
   logoImage="/assets/jobtray_logo_with_text.png";

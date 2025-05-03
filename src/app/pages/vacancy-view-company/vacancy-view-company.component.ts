@@ -19,6 +19,6 @@ import {HeaderCompanyComponent} from '../../components/header-company/header-com
   templateUrl: './vacancy-view-company.component.html',
   styleUrl: './vacancy-view-company.component.css'
 })
-export class VacancyViewCompanyComponent {
 
+export class VacancyViewCompanyComponent {
 }

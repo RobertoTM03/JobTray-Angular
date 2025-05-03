@@ -13,6 +13,6 @@ import {VacancyProfileViewComponent} from '../../components/vacancy-profile-view
   templateUrl: './vacancy-profile-edit-viewer.component.html',
   styleUrl: './vacancy-profile-edit-viewer.component.css'
 })
-export class VacancyProfileEditViewerComponent {
 
+export class VacancyProfileEditViewerComponent {
 }

@@ -13,23 +13,24 @@ import {VacancyPostCompanyComponent} from './pages/vacancy-post-company/vacancy-
 import {CompanyViewJobSeekerProfileComponent} from './pages/job-seeker-profile-view/company-view-job-seeker-profile.component'
 import {JobSeekerProfileEditComponent} from './pages/job-seeker-profile-edit/job-seeker-profile-edit.component';
 import {MainPagesComponent} from './pages/main-pages/main-pages.component';
-
-//TODO Proteger rutas para acceso denegar acceso sin sesión iniciada
-//TODO Proteger rutas frente a cierto tipo de integrantes
+import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
+import {AuthGuard} from './services/auth-guard.service';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'main-page', pathMatch: 'full' },
-  { path: 'find-jobs', component: FindJobsJobSeekerComponent },
-  { path: 'job-listing', component: JobListingCompanyComponent },
-  { path: 'job-seeker-profile-view/:id', component:CompanyViewJobSeekerProfileComponent },
-  { path: 'job-seeker-profile-edit', component: JobSeekerProfileEditComponent  },
+  { path: 'find-jobs', component: FindJobsJobSeekerComponent, canActivate: [AuthGuard] },
+  { path: 'job-listing', component: JobListingCompanyComponent, canActivate: [AuthGuard] },
+  { path: 'job-seeker-profile-view/:id', component:CompanyViewJobSeekerProfileComponent, canActivate: [AuthGuard] },
+  { path: 'job-seeker-profile-edit', component: JobSeekerProfileEditComponent, canActivate: [AuthGuard]  },
   { path: 'sign-in-job-seeker', component: SignInJobSeekerComponent },
   { path: 'sign-in-company', component: SignInCompanyComponent },
   { path: 'sign-up-job-seeker', component: SignUpJobSeekerComponent },
   { path: 'sign-up-company', component: SignUpCompanyComponent },
-  { path: 'vacancy-applicants/:id', component: VacancyApplicantsListCompanyComponent },
-  { path: 'view-vacancy/:id', component: VacancyProfileEditViewerComponent },
-  { path: 'edit-vacancy/:id', component: VacancyViewCompanyComponent },
-  { path: 'post-vacancy', component: VacancyPostCompanyComponent },
+  { path: 'vacancy-applicants/:id', component: VacancyApplicantsListCompanyComponent, canActivate: [AuthGuard] },
+  { path: 'view-vacancy/:id', component: VacancyProfileEditViewerComponent, canActivate: [AuthGuard] },
+  { path: 'edit-vacancy/:id', component: VacancyViewCompanyComponent, canActivate: [AuthGuard] },
+  { path: 'post-vacancy', component: VacancyPostCompanyComponent, canActivate: [AuthGuard] },
   { path: 'main-page', component: MainPagesComponent },
+  { path: 'not-found', component: PageNotFoundComponent },
+  { path: '', redirectTo: 'main-page', pathMatch: 'full' },
+  { path: '**', redirectTo: "not-found", pathMatch: 'full' },
 ];

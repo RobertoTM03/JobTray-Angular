@@ -8,6 +8,7 @@ import {UserSessionService} from '../../services/user-session.service';
   templateUrl: './page-not-found.component.html',
   styleUrl: './page-not-found.component.css'
 })
+
 export class PageNotFoundComponent {
   constructor(
     private router: Router,
@@ -19,5 +20,4 @@ export class PageNotFoundComponent {
 
     this.router.navigate(['/main-page']);
   }
-
 }

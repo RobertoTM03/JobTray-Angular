@@ -308,7 +308,7 @@
 
   #space-user {
     display: flex;
-    flex-direction: column-reverse; /* Apilar elementos en columna */
+    flex-direction: column-reverse;
     align-items: stretch;
     min-height: auto ;
     height: auto ;
@@ -389,7 +389,6 @@
     width: 100px;
   }
 
-  /* Salario específico */
   .salary-container {
     display: flex;
     justify-content: flex-end;

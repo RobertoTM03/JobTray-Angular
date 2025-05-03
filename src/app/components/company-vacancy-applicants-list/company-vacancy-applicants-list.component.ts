@@ -1,13 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobSeekerService } from '../../services/job-seeker.service';
-import { UserSessionService } from '../../services/user-session.service';
 import { VacancyService } from '../../services/vacancy.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import { JobSeeker } from '../../models/job-seeker';
 import { ApplicantStage } from '../../enums/applicant-stage.enum';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
-
-//TODO Falta el menu desplegable
+import { DatePipe, NgForOf, NgIf } from '@angular/common';
 
 interface DisplayApplicant {
   id: string;
@@ -15,21 +12,18 @@ interface DisplayApplicant {
   image: string;
   stage: ApplicantStage;
   applyDate: string;
-  showOptions?: boolean;
+  showOptions: boolean;
 }
 
 @Component({
   selector: 'app-company-vacancy-applicants-list',
+  standalone: true,
   templateUrl: './company-vacancy-applicants-list.component.html',
-  imports: [
-    DatePipe,
-    NgForOf,
-    NgIf
-  ],
-  styleUrl: './company-vacancy-applicants-list.component.css'
+  styleUrl: './company-vacancy-applicants-list.component.css',
+  imports: [DatePipe, NgForOf, NgIf]
 })
 
-export class CompanyVacancyApplicantsListComponent {
+export class CompanyVacancyApplicantsListComponent implements OnInit {
   applicants: DisplayApplicant[] = [];
 
   constructor(
@@ -46,46 +40,73 @@ export class CompanyVacancyApplicantsListComponent {
   loadApplicantsForVacancy(): void {
     const vacancyId = this.route.snapshot.paramMap.get('id');
     if (!vacancyId) {
-      console.error("Error al cargar la vacante");
+      console.error("Error loading vacancy");
       return;
     }
 
+    this.applicants = [];
+
     this.vacancyService.getVacancyById(vacancyId).subscribe({
       next: vacancy => {
-        if (!vacancy?.applicants) {
-          console.error("Vacante sin aplicantes");
-          return;
-        }
+        if (!vacancy?.applicants) return;
 
         vacancy.applicants.forEach(app => {
           this.jobSeekerService.getJobSeekerById(app.id).subscribe((jobSeeker: JobSeeker) => {
-            this.applicants.push({
-              id: app.id,
-              fullName: jobSeeker.fullName,
-              image: jobSeeker.image,
-              stage: app.stage,
-              applyDate: app.applyDate
-            });
+            const alreadyExists = this.applicants.some(a => a.id === app.id);
+            if (!alreadyExists) {
+              this.applicants.push({
+                id: app.id,
+                fullName: jobSeeker.fullName,
+                image: jobSeeker.image,
+                stage: app.stage,
+                applyDate: app.applyDate,
+                showOptions: false
+              });
+            }
           });
         });
       },
       error: err => {
-        console.error("Error al cargar la vacante", err);
+        console.error("Error loading vacancy", err);
       }
     });
   }
 
   seeProfile(id: string): void {
-    this.router.navigate(['/job-seeker-profile-view', id], {});
+    this.router.navigate(['/job-seeker-profile-view', id]);
   }
 
   toggleOptions(applicant: DisplayApplicant): void {
-    applicant.showOptions = !applicant.showOptions;
-    console.log('Toggled options for:', applicant);
+    this.applicants.forEach(a => {
+      a.showOptions = a === applicant ? !a.showOptions : false;
+    });
   }
 
   declineApplicant(applicant: DisplayApplicant): void {
-    console.log('Aplicante rechazado:', applicant);
-    // TODO: implementar lógica de rechazo de aplicantes
+    const vacancyId = this.route.snapshot.paramMap.get('id');
+    if (!vacancyId) return;
+
+    if (confirm("Are you sure you want to decline this applicant?")) {
+      this.vacancyService.removeApplicantFromVacancy(vacancyId, {
+        id: applicant.id,
+        stage: applicant.stage,
+        applyDate: applicant.applyDate
+      }).subscribe({
+        next: () => {
+          this.applicants = this.applicants.filter(a => a.id !== applicant.id);
+        },
+        error: err => {
+          console.error("Error rejecting applicant", err);
+        }
+      });
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onOutsideClick(event: MouseEvent): void {
+    const clickedInside = (event.target as HTMLElement).closest('.button-group');
+    if (!clickedInside) {
+      this.applicants.forEach(a => (a.showOptions = false));
+    }
   }
 }

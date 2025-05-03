@@ -1,5 +1,5 @@
 <main class="vacancy-post-container">
-  <form #postVacancyForm="ngForm" (ngSubmit)="postVacancy()" novalidate>
+  <form #postVacancyForm="ngForm" (ngSubmit)="postVacancy(postVacancyForm)" novalidate>
 
     <!-- Job Title -->
     <section class="form-group-section">
@@ -17,13 +17,13 @@
           required
           #name="ngModel"
         />
-        <div *ngIf="name.invalid && name.touched" class="error-message">
+        <div *ngIf="name.invalid && (name.touched || submitted)" class="error-message">
           Job title is required.
         </div>
       </div>
     </section>
 
-    <!-- Type of Employment -->
+    <!-- Job Type -->
     <section class="form-group-section">
       <div class="label-container">
         <label>Type of Employment</label>
@@ -37,7 +37,7 @@
           <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="internship" required> Internship</label>
           <label><input type="radio" name="jobType" [(ngModel)]="vacancy.jobType" value="contract" required> Contract</label>
         </div>
-        <div *ngIf="!vacancy.jobType && postVacancyForm.touched" class="error-message">
+        <div *ngIf="!vacancy.jobType && submitted" class="error-message">
           Type of Employment is required.
         </div>
       </div>
@@ -73,10 +73,10 @@
             #maximumSalary="ngModel"
           >
         </div>
-        <div *ngIf="minimumSalary.invalid && minimumSalary.touched" class="error-message">
+        <div *ngIf="minimumSalary.invalid && (minimumSalary.touched || submitted)" class="error-message">
           Minimum salary is required.
         </div>
-        <div *ngIf="maximumSalary.invalid && maximumSalary.touched" class="error-message">
+        <div *ngIf="maximumSalary.invalid && (maximumSalary.touched || submitted)" class="error-message">
           Maximum salary is required.
         </div>
       </div>
@@ -94,13 +94,13 @@
           <label><input type="radio" name="employmentSector" [(ngModel)]="vacancy.employmentSector" value="secondary" required> Secondary</label>
           <label><input type="radio" name="employmentSector" [(ngModel)]="vacancy.employmentSector" value="third" required> Third</label>
         </div>
-        <div *ngIf="!vacancy.employmentSector && postVacancyForm.touched" class="error-message">
+        <div *ngIf="!vacancy.employmentSector && submitted" class="error-message">
           Employment sector is required.
         </div>
       </div>
     </section>
 
-    <!-- Education Level -->
+    <!-- Education Required -->
     <section class="form-group-section">
       <div class="label-container">
         <label>Minimum education required</label>
@@ -114,7 +114,7 @@
           <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="university" required> University</label>
           <label><input type="radio" name="minimumEducationRequired" [(ngModel)]="vacancy.minimumEducationRequired" value="master" required> Master</label>
         </div>
-        <div *ngIf="!vacancy.minimumEducationRequired && postVacancyForm.touched" class="error-message">
+        <div *ngIf="!vacancy.minimumEducationRequired && submitted" class="error-message">
           Education level is required.
         </div>
       </div>
@@ -134,17 +134,16 @@
           placeholder="This description will be displayed publicly"
           required
         ></textarea>
-        <div *ngIf="!vacancy.description && postVacancyForm.touched" class="error-message">
+        <div *ngIf="!vacancy.description && submitted" class="error-message">
           Job description is required.
         </div>
       </div>
     </section>
 
-    <!-- Submit Button -->
+    <!-- Submit -->
     <button
       type="submit"
       class="vacancy-submit-btn"
-      [disabled]="postVacancyForm.invalid"
     >
       Submit offer
     </button>

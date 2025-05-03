@@ -1,46 +1,57 @@
 <section class="list-container">
 
-  <!-- Botón Filters que aparece en mobile/tablet -->
-  <button class="filters-toggle">Filters</button>
+  <button class="filters-toggle" (click)="toggleFilters()">Filters</button>
 
-  <!-- Fondo Oscuro -->
-  <div class="overlay"></div>
+  <div class="overlay" [class.active]="filtersVisible" (click)="closeFilters()"></div>
 
-  <!-- Aside con filtros (preparado para futura lógica) -->
-  <aside class="filter-aside">
+  <aside class="filter-aside" [class.active]="filtersVisible">
+    <button class="close-button" (click)="closeFilters()">✕</button>
+
     <fieldset>
       <legend>Salary Range</legend>
-      <label><input type="checkbox" checked> $700 - $1000 (4)</label>
-      <label><input type="checkbox" checked> $1000 - $1500 (6)</label>
-      <label><input type="checkbox" checked> $1500 - $2000 (10)</label>
-      <label><input type="checkbox" checked> $3000 or above (4)</label>
+      <label>
+        <input type="radio" name="salary" [(ngModel)]="selectedSalaryRange" [value]="''"> Any
+      </label>
+      <label>
+        <input type="radio" name="salary" [(ngModel)]="selectedSalaryRange" value="0-1000"> $0 - $1000
+      </label>
+      <label>
+        <input type="radio" name="salary" [(ngModel)]="selectedSalaryRange" value="1000-1500"> $1000 - $1500
+      </label>
+      <label>
+        <input type="radio" name="salary" [(ngModel)]="selectedSalaryRange" value="1500-2000"> $1500 - $2000
+      </label>
+      <label>
+        <input type="radio" name="salary" [(ngModel)]="selectedSalaryRange" value="3000+"> $3000 or above
+      </label>
     </fieldset>
 
     <fieldset>
-      <legend>Sector</legend>
-      <label><input type="checkbox" checked> Primary</label>
-      <label><input type="checkbox" checked> Secondary</label>
-      <label><input type="checkbox" checked> Third</label>
+      <legend>Job Type</legend>
+      <label><input type="checkbox" [(ngModel)]="selectedJobTypes['Full-Time']"> Full-Time</label>
+      <label><input type="checkbox" [(ngModel)]="selectedJobTypes['Half-Time']"> Half-Time</label>
+      <label><input type="checkbox" [(ngModel)]="selectedJobTypes['Remote']"> Remote</label>
+      <label><input type="checkbox" [(ngModel)]="selectedJobTypes['Internship']"> Internship</label>
+      <label><input type="checkbox" [(ngModel)]="selectedJobTypes['Contract']"> Contract</label>
     </fieldset>
 
     <fieldset>
       <legend>Education</legend>
-      <label><input type="checkbox" checked> Elementary School</label>
-      <label><input type="checkbox" checked> Middle School</label>
-      <label><input type="checkbox" checked> High School</label>
-      <label><input type="checkbox" checked> University</label>
-      <label><input type="checkbox" checked> Master</label>
+      <label><input type="checkbox" [(ngModel)]="selectedEducations['Elementary School']"> Elementary School</label>
+      <label><input type="checkbox" [(ngModel)]="selectedEducations['Middle School']"> Middle School</label>
+      <label><input type="checkbox" [(ngModel)]="selectedEducations['High School']"> High School</label>
+      <label><input type="checkbox" [(ngModel)]="selectedEducations['University']"> University</label>
+      <label><input type="checkbox" [(ngModel)]="selectedEducations['Master']"> Master</label>
     </fieldset>
 
     <div class="apply-filters-button">
-      <button id="apply-filters">Apply Filters</button>
+      <button id="apply-filters" (click)="applyFilters()">Apply Filters</button>
     </div>
   </aside>
 
   <section class="job-list">
     <h2>All Jobs</h2>
 
-    <!-- Lista de vacantes visibles -->
     <div class="job-card" *ngFor="let vacancy of visibleVacancies" (click)="seeVacancy(vacancy.id)">
       <div class="logo">
         <img [src]="vacancy.image || '/assets/asps.png'" alt="Company Logo">
@@ -53,8 +64,7 @@
       </div>
     </div>
 
-    <!-- Botón para ver más -->
-    <div class="see-more-button" *ngIf="visibleVacancies.length < vacancies.length">
+    <div class="see-more-button" *ngIf="visibleVacancies.length < filteredVacancies.length">
       <button id="see-more" (click)="showMore()">See more...</button>
     </div>
   </section>

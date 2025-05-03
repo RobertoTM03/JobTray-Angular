@@ -9,6 +9,7 @@
 .vacancy-tab {
   margin-right: 20px;
   padding-bottom: 5px;
+  cursor: pointer;
 }
 
 .vacancy-tab a {
@@ -19,6 +20,5 @@
 
 .vacancy-tab.active a {
   font-weight: bold;
-  color: black;
-  border-bottom: 3px solid blue;
+  border-bottom: black;
 }

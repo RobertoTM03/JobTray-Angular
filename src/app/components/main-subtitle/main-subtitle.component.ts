@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-main-subtitle',
@@ -8,4 +9,16 @@ import {Component, Input} from '@angular/core';
 })
 export class MainSubtitleComponent {
   @Input() subtitle: string = 'subtitle';
+  @Input() prevPath: string = '';
+
+  constructor(private router: Router) {
+  }
+
+  ngOnInit(): void {
+    console.log('prevPath:', this.prevPath);
+  }
+
+  goBack(): void {
+    this.router.navigate([`/${this.prevPath}`]);
+  }
 }

@@ -6,20 +6,18 @@
   </section>
   <section class="display-section">
     <section class="company-buttons-container">
-      <!-- Botones visibles en escritorio -->
       <button class="company-buttons" (click)="goToJobListing()" role="button" tabindex="0">Job Listing</button>
       <button class="company-buttons" (click)="goToPostVacancyPost()" role="button" tabindex="0">Post a job</button>
 
       <div class="mobile-btn-wrapper">
-        <button class="mobile-btn">☰</button>
+        <button class="mobile-btn" (click)="toggleMobileMenu()">☰</button>
 
-        <div class="mobile-btn-container">
-          <button class="mobile-button" (click)="goToJobListing()" role="button">Job Listing</button>
-          <button class="mobile-button" (click)="goToPostVacancyPost()" role="button">Post a job</button>
+        <div class="mobile-btn-container" [ngClass]="{ 'active': isMobileMenuOpen }">
+          <button class="mobile-button" (click)="goToJobListing(); toggleMobileMenu()" role="button">Job Listing</button>
+          <button class="mobile-button" (click)="goToPostVacancyPost(); toggleMobileMenu()" role="button">Post a job</button>
         </div>
       </div>
 
-      <!-- Perfil de usuario -->
       <section class="buttons-section-header">
         <img [src]="currentCompany?.image" id="company-header-profile-image" alt="">
 

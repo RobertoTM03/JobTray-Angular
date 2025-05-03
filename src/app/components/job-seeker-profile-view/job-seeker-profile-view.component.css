@@ -388,7 +388,6 @@
     width: 100px;
   }
 
-  /* Salario específico */
   .salary-container {
     display: flex;
     justify-content: flex-end;

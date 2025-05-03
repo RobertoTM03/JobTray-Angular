@@ -78,3 +78,23 @@
   color: #565c68;
   font-size: 18px;
 }
+
+.input-error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty{
+  border-color: red;
+  margin-bottom: 4px;
+}
+
+
+.error-message {
+  color: red;
+  margin-top: 16px;
+  text-align: center;
+}

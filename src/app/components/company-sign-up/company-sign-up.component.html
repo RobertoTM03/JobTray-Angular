@@ -10,9 +10,20 @@
     </div>
 
     <section class="sign-entry-form">
-      <form #signupForm="ngForm" (ngSubmit)="signUp()" id="signup-company">
+      <form #signupForm="ngForm" (ngSubmit)="signUp(signupForm)" id="signup-company">
         <label for="name">Company name</label>
-        <input type="text" id="name" placeholder="Enter your company name" [(ngModel)]="companyName" name="companyName" required>
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter your company name"
+          [(ngModel)]="companyName"
+          name="companyName"
+          required
+          #companyNameField="ngModel"
+        />
+        <div *ngIf="companyNameField.invalid && (companyNameField.touched || submitted)" class="input-error-message">
+          <p *ngIf="companyNameField.errors?.['required']">Company name is required.</p>
+        </div>
 
         <label for="email">Email Address</label>
         <input
@@ -22,8 +33,13 @@
           [(ngModel)]="email"
           name="email"
           required
-          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-          title="Please enter a valid email address">
+          email
+          #emailField="ngModel"
+        />
+        <div *ngIf="emailField.invalid && (emailField.touched || submitted)" class="input-error-message">
+          <p *ngIf="emailField.errors?.['required']">Email is required.</p>
+          <p *ngIf="emailField.errors?.['email']">Please enter a valid email.</p>
+        </div>
 
         <label for="cif-nif">CIF/NIF</label>
         <input
@@ -34,7 +50,12 @@
           name="cifNif"
           required
           pattern="^[A-HJ-NP-TV-Z][0-9]{7}[A-Z]$|^[A-HJ-NP-TV-Z]{1}[0-9]{8}[A-J]$"
-          title="CIF/NIF should follow the format: X1234567Y or X12345678A">
+          #cifField="ngModel"
+        />
+        <div *ngIf="cifField.invalid && (cifField.touched || submitted)" class="input-error-message">
+          <p *ngIf="cifField.errors?.['required']">CIF/NIF is required.</p>
+          <p *ngIf="cifField.errors?.['pattern']">Format must be: X1234567Y or X12345678A</p>
+        </div>
 
         <label for="password">Password</label>
         <input
@@ -45,26 +66,28 @@
           name="password"
           required
           minlength="8"
-          title="Password must be at least 8 characters long">
+          #passwordField="ngModel"
+        />
+        <div *ngIf="passwordField.invalid && (passwordField.touched || submitted)" class="input-error-message">
+          <p *ngIf="passwordField.errors?.['required']">Password is required.</p>
+          <p *ngIf="passwordField.errors?.['minlength']">Minimum 8 characters.</p>
+        </div>
 
-        <label for="password-confirm">Confirm Password</label>
+        <label for="confirmPassword">Confirm Password</label>
         <input
           type="password"
-          id="password-confirm"
-          placeholder="Repeat the password"
+          id="confirmPassword"
+          placeholder="Confirm your password"
           [(ngModel)]="confirmPassword"
           name="confirmPassword"
           required
-          minlength="8"
-          title="Password must be at least 8 characters long">
+        />
+        <div *ngIf="submitted && password !== confirmPassword" class="input-error-message">
+          <p>Passwords don't match.</p>
+        </div>
 
-        <button
-          type="submit"
-          class="submit-button"
-          role="button"
-          tabindex="0"
-          [disabled]="signupForm.invalid">
-          Sign up
+        <button type="submit" class="submit-button" role="button" tabindex="0">
+          Sign Up
         </button>
       </form>
     </section>
@@ -73,4 +96,6 @@
       <p>Already have an account? <a (click)="goToCompanySignIn()" role="link" tabindex="0">Login</a></p>
     </div>
   </section>
+
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 </main>

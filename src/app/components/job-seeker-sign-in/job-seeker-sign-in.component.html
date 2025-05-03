@@ -8,32 +8,39 @@
     <div class="title-text">
       <h1>Welcome back</h1>
     </div>
+
     <section class="sign-entry-form">
-      <form id="loginFormUser" #signInForm="ngForm" (ngSubmit)="signIn()">
+      <form #signInForm="ngForm" (ngSubmit)="signIn(signInForm)">
         <label for="email">Email Address</label>
         <input
           type="email"
           id="email"
-          [(ngModel)]="email"
           name="email"
+          [(ngModel)]="email"
           required
+          email
           placeholder="Enter email address"
-        >
+          #emailField="ngModel"
+        />
+        <div *ngIf="emailField.invalid && (emailField.touched || submitted)" class="input-error-message">
+          <p *ngIf="emailField.errors?.['required']">Email is required.</p>
+          <p *ngIf="emailField.errors?.['email']">Please enter a valid email address.</p>
+        </div>
+
         <label for="password">Password</label>
         <input
           type="password"
           id="password"
-          [(ngModel)]="password"
           name="password"
+          [(ngModel)]="password"
           required
           minlength="8"
           placeholder="Enter password"
           #passwordField="ngModel"
-        >
-
-        <!-- Mostrar mensaje de error si la contraseña tiene menos de 8 caracteres -->
-        <div *ngIf="passwordField.invalid && passwordField.touched" style="color: red;">
-          <p>Password must be at least 8 characters long.</p>
+        />
+        <div *ngIf="passwordField.invalid && (passwordField.touched || submitted)" class="input-error-message">
+          <p *ngIf="passwordField.errors?.['required']">Password is required.</p>
+          <p *ngIf="passwordField.errors?.['minlength']">Password must be at least 8 characters long.</p>
         </div>
 
         <button
@@ -41,7 +48,6 @@
           class="submit-button"
           role="button"
           tabindex="0"
-          [disabled]="signInForm.invalid"
         >
           Login
         </button>
@@ -53,5 +59,5 @@
     </div>
   </section>
 
-  <p *ngIf="errorMessage" style="color:red;">{{ errorMessage }}</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 </main>

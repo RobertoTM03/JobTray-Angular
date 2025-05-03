@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './main-tittle.component.html',
   styleUrl: './main-tittle.component.css'
 })
+
 export class MainTittleComponent {
     @Input() tittle: string = 'tittle';
 }

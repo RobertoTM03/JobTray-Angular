@@ -1,4 +1,16 @@
 <ul class="vacancy-tab-nav">
-  <li id="redirect-to-vacancy-edit" class="vacancy-tab"><a role="button" (click)="goToEditVacancy()">Job Details</a></li>
-  <li id="redirect-to-vacancy-list" class="vacancy-tab"><a role="button" (click)="goToVacancyApplicants()">Applicants</a></li>
+  <li
+    class="vacancy-tab"
+    [class.active]="activeTab === 'details'"
+    (click)="goToEditVacancy()"
+  >
+    <a role="button">Job Details</a>
+  </li>
+  <li
+    class="vacancy-tab"
+    [class.active]="activeTab === 'applicants'"
+    (click)="goToVacancyApplicants()"
+  >
+    <a role="button">Applicants</a>
+  </li>
 </ul>
